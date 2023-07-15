@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+<head>
+  <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
+</head>
+{% block content %}
+<main>
+  <section class="container section-1">
+    <div class="slogan">
+      <h1 class="company-title">VESTIDOS DE TODO TIPO</h1>
+      <br>
+      <h2 class="company-slogan">
+        Compra vestidos a tu gusto a tu talla cuando quieras y cuando puedas
+      </h2>
+    </div>
+    <div class="home-computer-container">
+        <img class="home-computer" src="{{ url_for('static', filename='img/LULA.png') }}" class="home-img">
+      </div>
+    </section>
+</main>
+<div class="footer-divider"></div>
+<footer class="footer">
+  <div class="footer-section">
+    <h3>Encuéntranos en:</h3>
+    <a href="https://www.google.com/maps/dir/19.369754,-97.9810878/19.3209903,-97.93025/@19.3432906,-97.9959905,13z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu"><p>Av. Del Agua no.24 Fracc. Nuevos horizontes <br> Heroica Huamantla,Mexico</p></a>
+  </div>
+  <div class="footer-section">
+    <h3>Numero: </h3>
+    <p>+52 247 471 0115</p>
+  </div>
+</footer>
+{% endblock %}

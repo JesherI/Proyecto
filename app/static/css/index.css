@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400");
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  background-color: var(--white-color);
+}
+
+.section-1 {
+  background-color: var(--dark-color);
+  display: grid;
+}
+
+@media (min-width: 769px) {
+  header {
+    padding: 1rem 5rem;
+  }
+  .section-1 {
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr;
+    padding: 10rem 5rem 0 5rem;
+  }
+  .slogan .company-title {
+    max-width: 30rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.5rem;
+  }
+  .slogan .company-slogan {
+    max-width: 20rem;
+    font-size: 1.3rem;
+  }
+  
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: black;
+  margin-bottom: 20px;
+  flex-basis: 100%;
+}
+
+.footer-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.footer-section h3 {
+  margin: 0;
+  padding-right: 5px;
+  align-self: center;
+  border-left: 100px solid rgba(0, 0, 0, 0);
+  border-right: 1px solid rgba(0, 0, 0, 0);
+}
+
+.footer-section p {
+  margin: 0;
+  padding-left: 50px;
+  align-self: center;
+  flex-grow: 1;
+  text-align: center;
+  border-left: 1px solid rgba(0, 0, 0, 0);
+  border-right: 90px solid rgba(0, 0, 0, 0);
+}
+
+a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-family: "Arial", sans-serif;
+  align-self: flex-start;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
+  
+  .footer-section h3 {
+    font-size: 1.2rem; 
+  }
+  
+  .footer-section p {
+    font-size: 0.9rem; 
+  }
+
+  .footer-divider {
+    height: 1px;
+    background-color: black;
+    margin-bottom: 20px;
+    flex-basis: 100%;
+  }
+}

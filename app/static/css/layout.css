@@ -1,0 +1,142 @@
+.header {
+    position: relative;
+  }
+  
+  .header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.5px;
+    background-color: black;
+  }
+  
+  .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: black;
+      font-family: "Arial", sans-serif;
+      font-size: 40px;
+      align-self: flex-start;
+      margin-right: auto;
+      cursor: pointer;
+    }
+    
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar li {
+      margin-left: 10px;
+    }
+    
+    .navbar li:first-child {
+      margin-left: 0;
+    }
+  
+    .navbar ul li a {
+      display: inline-block;
+      font-size: 20px;
+      font-family: "Arial", sans-serif;
+      position: relative;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 15px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .navbar ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #000;
+      transform: scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .navbar ul li a:hover {
+      text-decoration: none;
+    }
+    
+    .navbar ul li a:hover::after {
+      transform: scaleX(1);
+    }
+  
+    .navbar ul li:nth-child(2) a {
+      margin-right: 30px;
+    }
+    
+    .navbar ul li:last-child a {
+      margin-left: 30px;
+    }
+    
+    @media (max-width: 768px) {
+      .navbar ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 15px 10px 20px rgba(0, 0, 0, 0.2); 
+    }
+      
+      #menu-icon {
+        display: block; 
+        cursor: pointer; 
+      }
+      
+      .navbar ul.show {
+        display: flex;
+        flex-direction: column; 
+      }
+      .navbar li {
+        margin: 5px 0;
+      }
+      .navbar ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  
+    @media (min-width: 769px) {
+      #menu-icon {
+        display: none;
+        margin-left: 100px;
+      }
+      
+      .navbar ul {
+        display: flex;
+        justify-content: center; 
+      }
+      
+      .navbar li {
+        margin: 0 10px;
+      }
+  
+      .navbar ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  
+  
+    
