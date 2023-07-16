@@ -1,7 +1,11 @@
 from flask import Flask, render_template
 
+from views.user_views import user_views
 #Asiganamos el nombre de la aplicasión
 app = Flask(__name__)
+
+app.register_blueprint(user_views)
+app.config['SECRET_KEY'] = 'my secret key'
 
 #rutas de la web
 @app.route('/')

@@ -1,1 +1,4 @@
 flask
+flask-mysqldb
+flask-WTF
+email-validator
