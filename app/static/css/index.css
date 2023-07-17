@@ -20,22 +20,26 @@ body {
   header {
     padding: 1rem 5rem;
   }
+
   .section-1 {
     justify-content: space-between;
     grid-template-columns: 1fr 1fr;
     padding: 10rem 5rem 0 5rem;
   }
+
   .slogan .company-title {
     max-width: 30rem;
     font-size: 1.8rem;
     letter-spacing: 0.5rem;
   }
+
   .slogan .company-slogan {
     max-width: 20rem;
     font-size: 1.3rem;
   }
-  
+
 }
+
 .footer {
   padding: 20px;
   text-align: center;
@@ -94,17 +98,17 @@ a {
     align-items: center;
     padding: 10px;
   }
-  
+
   .footer-section {
     text-align: center;
   }
-  
+
   .footer-section h3 {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
   }
-  
+
   .footer-section p {
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
   }
 
   .footer-divider {

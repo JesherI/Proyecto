@@ -5,7 +5,7 @@ from utils.file_handler import save_image
 
 user_views = Blueprint('user',__name__)
 
-@user_views . route('/usuarios/restro/', methods=('GET', 'POST'))
+@user_views . route('/registro/', methods=('GET', 'POST'))
 def register():
     form = RegisterForm()
 
@@ -21,5 +21,5 @@ def register():
 
         user = User(nombre, apellido_paterno, apellido_materno, nombre_de_usuario, tipo_usuario, direccion, telefono, contrasena)
         user.save()
-        return redirect(url_for('user.login'))
+        return redirect(url_for('user.register'))
     return render_template('users/registro.html', form=form)

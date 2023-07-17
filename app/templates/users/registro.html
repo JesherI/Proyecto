@@ -1,120 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registro.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Yfzjc89Fgn4NlFwC7eXY9ARsdYxvtDAZGk2VXg+F+GZsLZGUMCn6I6cqF8p3sLNS2c21DS9tZvwluLJL/1R02g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-Yfzjc89Fgn4NlFwC7eXY9ARsdYxvtDAZGk2VXg+F+GZsLZGUMCn6I6cqF8p3sLNS2c21DS9tZvwluLJL/1R02g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>LULA</title>
 </head>
+
 <body>
     <header>
-        <a href="#" class="btn-regresar"><i class="fa-solid fa-angle-left fa-xl" style="color: #000000;"></i> Regresar</a>
+        <a href="/" class="btn-regresar"><i class="fa-solid fa-angle-left fa-xl" style="color: #000000;"></i>
+            Regresar</a>
     </header>
-      
+
     {% block content %}
-    <main>
-        <div class="for-cotainer">
-
-<form method="post">
-    <h1>Registro</h1>
-    {{ form.csrf_token }}
-    <div>
-        {{ form.nombre_de_usuario.label }}
-        {{ form.nombre_de_usuario(class="form-control") }}
-        {% if form.nombre_de_usuario.errors %}
-            {% for error in form.nombre_de_usuario.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
+    <div class="container">
+        <div class="title">Registro</div>
+        <div class="content">
+            <form method="post">
+                {{ form.csrf_token }}
+                <div class="user-details">
+                    <div class="input-box">
+                        {{ form.nombre_de_usuario.label }}
+                        {{ form.nombre_de_usuario(class="form-control", placeholder="Nombre de Usuario") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.contrasena.label }}
+                        {{ form.contrasena(class="form-control" , placeholder="Contraseña") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.password_confirm.label }}
+                        {{ form.password_confirm(class="form-control", placeholder="Confirmar Contraseña") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.nombre.label }}
+                        {{ form.nombre(class="form-control", placeholder="Nombre") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.apellido_paterno.label }}
+                        {{ form.apellido_paterno(class="form-control", placeholder="Apellido Paterno") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.apellido_materno.label }}
+                        {{ form.apellido_materno(class="form-control", placeholder="Apellido Materno") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.tipo_usuario.label }}
+                        <div class="select">
+                            {{ form.tipo_usuario(class="form-control") }}
+                        </div>
+                    </div >
+                    <div class="input-box">
+                        {{ form.direccion.label }}
+                        {{ form.direccion(class="form-control", placeholder="Direccion") }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.telefono.label }}
+                        {{ form.telefono(class="form-control", placeholder="Telefono") }}
+                    </div>
+                    <div class="button">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        {{ form.contrasena.label }}
-        {{ form.contrasena(class="form-control") }}
-        {% if form.contrasena.errors %}
-            {% for error in form.contrasena.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.password_confirm.label }}
-        {{ form.password_confirm(class="form-control") }}
-        {% if form.password_confirm.errors %}
-            {% for error in form.password_confirm.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.nombre.label }}
-        {{ form.nombre(class="form-control") }}
-        {% if form.nombre.errors %}
-            {% for error in form.nombre.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.apellido_paterno.label }}
-        {{ form.apellido_paterno(class="form-control") }}
-        {% if form.apellido_paterno.errors %}
-            {% for error in form.apellido_paterno.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.apellido_materno.label }}
-        {{ form.apellido_materno(class="form-control") }}
-        {% if form.apellido_materno.errors %}
-            {% for error in form.apellido_materno.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.tipo_usuario.label }}
-        {{ form.tipo_usuario(class="form-control") }}
-        {% if form.tipo_usuario.errors %}
-            {% for error in form.tipo_usuario.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.direccion.label }}
-        {{ form.direccion(class="form-control") }}
-        {% if form.direccion.errors %}
-            {% for error in form.direccion.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.telefono.label }}
-        {{ form.telefono(class="form-control") }}
-        {% if form.telefono.errors %}
-            {% for error in form.telefono.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.submit(class="btn btn-primary") }}
-    </div>
-</form>
-</div>
-</main>
-{% endblock %}
-<script src="https://kit.fontawesome.com/84d85cf0cc.js" crossorigin="anonymous"></script>
-  <script>
-    document.querySelector('.btn-regresar').addEventListener('click', function(event) {
-      event.preventDefault();
-      window.history.back();
-    });
-  </script>
+    {% endblock %}
+    <script src="https://kit.fontawesome.com/84d85cf0cc.js" crossorigin="anonymous"></script>
+    <script>
+        document.querySelector('.btn-regresar').addEventListener('click', function (event) {
+            event.preventDefault();
+            window.history.back();
+        });
+    </script>
 </body>
-</html>
 
+</html>
