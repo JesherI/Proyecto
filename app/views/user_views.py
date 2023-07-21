@@ -42,3 +42,7 @@ def register():
 @user_views . route('/home')
 def home():
     return render_template('users/home.html')
+
+@user_views . route('/home_cajero')
+def homecajero():
+    return render_template('users/homeca.html')
