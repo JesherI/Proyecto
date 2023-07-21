@@ -12,12 +12,14 @@ class RegisterForm(FlaskForm):
     nombre=StringField('Nombre', validators=[DataRequired()])
     apellido_paterno=StringField('Apellido Paterno', validators=[DataRequired()])
     apellido_materno=StringField('Apellido Materno', validators=[DataRequired()])
-    tipo_usuario = SelectField('Tipo de usuario', choices=[('admin', 'Administrador'), ('cajero', 'Cajero')], validators=[DataRequired()])
+    tipo_usuario = SelectField('Tipo de usuario', choices=[('cajero', 'Cajero'),('admin', 'Administrador')], validators=[DataRequired()])
     direccion=StringField('Direccion', validators=[DataRequired()])
     telefono=StringField('Telefono', validators=[DataRequired()])
+    foto_perfil = FileField('Imagen de Perfil', 
+                      validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Solo imagenes!')])
     submit = SubmitField('Registrar')
 
 
     def validate_nombre_de_usuario(self, field):
         if User.check_username(field.data):
-            raise ValidationError('El nombre de usuario y existe')
+            raise ValidationError('El nombre de usuario ya existe')

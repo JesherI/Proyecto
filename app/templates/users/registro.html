@@ -28,14 +28,29 @@
                     <div class="input-box">
                         {{ form.nombre_de_usuario.label }}
                         {{ form.nombre_de_usuario(class="form-control", placeholder="Nombre de Usuario") }}
+                        {% if form.nombre_de_usuario.errors %}
+                        {% for error in form.nombre_de_usuario.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="input-box">
                         {{ form.contrasena.label }}
                         {{ form.contrasena(class="form-control" , placeholder="Contraseña") }}
+                        {% if form.contrasena.errors %}
+                        {% for error in form.contrasena.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="input-box">
                         {{ form.password_confirm.label }}
                         {{ form.password_confirm(class="form-control", placeholder="Confirmar Contraseña") }}
+                        {% if form.password_confirm.errors %}
+                        {% for error in form.password_confirm.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="input-box">
                         {{ form.nombre.label }}
@@ -54,7 +69,7 @@
                         <div class="select">
                             {{ form.tipo_usuario(class="form-control") }}
                         </div>
-                    </div >
+                    </div>
                     <div class="input-box">
                         {{ form.direccion.label }}
                         {{ form.direccion(class="form-control", placeholder="Direccion") }}

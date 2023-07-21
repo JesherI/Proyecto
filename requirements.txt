@@ -2,3 +2,4 @@ flask
 flask-mysqldb
 flask_WTF
 email-validator
+Flask-Login

@@ -17,7 +17,6 @@ class User:
                  foto_perfil='',
                  id = None):
         self.id = id
-        self.foto_perfil = foto_perfil
         self.nombre = nombre
         self.apellido_paterno = apellido_paterno
         self.apellido_materno = apellido_materno
@@ -26,20 +25,21 @@ class User:
         self.direccion = direccion
         self.telefono = telefono
         self.contrasena = contrasena
+        self.foto_perfil = foto_perfil
 
     def save(self):
         if self.id is None:
             with mydb.cursor() as cursor:
                 self.contrasena  = generate_password_hash(self.contrasena)
-                sql = "INSERT INTO usuarios (nombre,apellido_paterno,apellido_materno,nombre_de_usuario,tipo_usuario,direccion,telefono,contrasena) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
-                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena)
+                sql = "INSERT INTO usuarios (nombre,apellido_paterno,apellido_materno,nombre_de_usuario,tipo_usuario,direccion,telefono,contrasena,foto_perfil ) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena, self.foto_perfil)
                 cursor.execute(sql, val)
                 mydb.commit()
                 self.id = cursor.lastrowid
                 return self.id
         else:
             with mydb.cursor() as cursor:
-                sql = 'UPDATE usuarios SET foto_perfil = %s,nombre = %s, apellido_paterno = %s , apellido_materno = %s, nombre_de_usuario = %s, tipo_usuario = %s, direccion = %s, telefono = %s, contrasena = %s'
+                sql = 'UPDATE usuarios SET nombre = %s, apellido_paterno = %s , apellido_materno = %s, nombre_de_usuario = %s, tipo_usuario = %s, direccion = %s, telefono = %s, contrasena = %s, foto_perfil = %s'
                 sql += 'WHERE id = %s'
                 val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena,self.foto_perfil,self.id)
                 cursor.execute(sql, val)
@@ -124,4 +124,4 @@ class User:
                 )
                 return users
     def __str__(self):
-        return f"{self.nombre_de_usuario} {self.nombre} {self.apellido_paterno} {self.apellido_materno}"
+        return f"{self.nombre_de_usuario} {self.nombre} {self.apellido_paterno} {self.apellido_materno} "
