@@ -48,3 +48,9 @@ def index_admin():
 @login_required
 def index_cajero():
     return render_template('users/cajero.html')
+
+@user_views.route('/usuarios/')
+@login_required
+def usuarios():
+    users = User.get_all()
+    return render_template('users/usuarios.html', users=users)

@@ -52,7 +52,7 @@ def login():
     else:
         return render_template('users/inicio_sesión.html')
     
-@app.route('/logout')
+@app.route('/logout/')
 def logout():
     logout_user()
     return redirect(url_for('login'))

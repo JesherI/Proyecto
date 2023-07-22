@@ -122,6 +122,7 @@ class User:
                          foto_perfil=user["foto_perfil"],
                          id=user["id"])
                 )
-                return users
+        return users  # ¡Mueve el return aquí, fuera del ciclo for!
+
     def __str__(self):
-        return f"{self.nombre_de_usuario} {self.nombre} {self.apellido_paterno} {self.apellido_materno} "
+        return f"{self.nombre_de_usuario} {self.nombre} {self.apellido_paterno} {self.apellido_materno}"
