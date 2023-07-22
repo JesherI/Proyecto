@@ -4,6 +4,15 @@
     padding: 0;
     font-family: 'poppins',sans-serif;
 }
+
+.btn-regresar {
+    display: inline-block;
+    padding: 10px;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
 body{
     background: linear-gradient(100deg, #f5c6da, #cbdff7,#fefbc6);
 }
@@ -11,7 +20,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 90vh;
     width: 100%;
 }
 .form-box{
@@ -113,3 +122,48 @@ button{
 .register p a:hover{
     text-decoration: underline;
 }
+select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #ffffff;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color:#000000;
+    cursor:pointer;
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
+ }
+ select::-ms-expand {
+    display: none;
+ }
+ .select {
+    border: 2px solid transparent;
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 3em;
+    line-height: 3;
+    background: #d9d9d900;
+    overflow: hidden;
+    border-radius: .25em;
+ }
+ .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #ffffff00;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+ }
+ .select:hover::after {
+    color: #ffffff;
+ }

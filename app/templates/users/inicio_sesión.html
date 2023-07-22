@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-Yfzjc89Fgn4NlFwC7eXY9ARsdYxvtDAZGk2VXg+F+GZsLZGUMCn6I6cqF8p3sLNS2c21DS9tZvwluLJL/1R02g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>LULA</title>
 </head>
+
 <body>
+    <header>
+        <a href="/" class="btn-regresar"><i class="fa-solid fa-angle-left fa-xl" style="color: #000000;"></i>
+            Regresar</a>
+    </header>
     <section>
         <div class="form-box">
             <div class="form-value">
                 <form method="post" action="/login/">
                     <h2>INICIO DE SESIÓN</h2>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     {% with messages = get_flashed_messages() %}
-                    
+
                     {% if messages %}
                     {% for message in messages %}
                     {{ message }}
@@ -27,10 +37,12 @@
                         <label for="">NOMBRE DE USUARIO</label>
                     </div>
                     <div class="inputbox">
-                        <select name="tipeuser">
-                            <option value="admin">Administrador</option>
-                            <option value="cajero">Cajero</option>
-                        </select>
+                        <div class="input-box">
+                            <select name="tipeuser" class="select">
+                                <option value="cajero">CAJERO</option>
+                                <option value="admin">ADMINISTRADOR</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="inputbox">
                         <input type="password" name="contrasena" required>
@@ -43,6 +55,13 @@
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/84d85cf0cc.js" crossorigin="anonymous"></script>
+    <script>
+        document.querySelector('.btn-regresar').addEventListener('click', function (event) {
+            event.preventDefault();
+            window.history.back();
+        });
+    </script>
 </body>
 
 </html>

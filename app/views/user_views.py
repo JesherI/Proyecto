@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, url_for, redirect, current_app, request, flash
+from flask import Blueprint, render_template, url_for, redirect, current_app,current_app
 from models.users import User
 from forms.user_forms import RegisterForm
 from werkzeug.utils import secure_filename
 from models.db import get_connection
-from flask import current_app
+from flask_login import LoginManager, login_user, logout_user ,login_required
 import os
 
 
@@ -39,10 +39,12 @@ def register():
     
     return render_template('users/registro.html', form=form)
     
-@user_views . route('/home')
-def home():
-    return render_template('users/home.html')
+@user_views . route('/Home_Admin')
+@login_required
+def index_admin():
+    return render_template('users/admin.html')
 
-@user_views . route('/home_cajero')
-def homecajero():
-    return render_template('users/homeca.html')
+@user_views . route('/Home_Cajero')
+@login_required
+def index_cajero():
+    return render_template('users/cajero.html')
