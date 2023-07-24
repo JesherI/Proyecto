@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, url_for, redirect, current_app,current_app
+from flask import Blueprint, render_template, url_for, redirect, current_app,current_app, flash, abort
 from models.users import User
-from forms.user_forms import RegisterForm
+from forms.user_forms import RegisterForm, ProfileForm
 from werkzeug.utils import secure_filename
 from models.db import get_connection
-from flask_login import LoginManager, login_user, logout_user ,login_required
+from flask_login import login_required
 import os
 
 
@@ -12,6 +12,7 @@ user_views = Blueprint('user',__name__)
 mysql = get_connection()
 
 @user_views . route('/registro/', methods=('GET', 'POST'))
+@login_required
 def register():
     form = RegisterForm()
 
@@ -53,4 +54,34 @@ def index_cajero():
 @login_required
 def usuarios():
     users = User.get_all()
+    form = RegisterForm()
     return render_template('users/usuarios.html', users=users)
+
+@user_views.route('/usuarios/eliminar/<int:user_id>', methods=['POST'])
+@login_required
+def eliminar_usuario(user_id):
+    user = User.__get__(user_id)  # Obtener el usuario por su ID
+    if user:
+        user.delete()  # Eliminar el usuario
+        flash('Usuario eliminado exitosamente.', 'success')
+    else:
+        flash('El usuario no existe.', 'error')
+
+    return redirect(url_for('user.usuarios'))
+
+@user_views.route('/users/<int:id>/actualizar/', methods=['GET', 'POST'])
+@login_required
+def user_update(id):
+    user = User.__get__(id)
+    if not user:
+        abort(404)
+
+    form = ProfileForm(obj=user)
+
+    if form.validate_on_submit():
+        form.populate_obj(user)
+        user.save()
+        flash('Perfil actualizado correctamente.', 'success')
+        return redirect(url_for('user.usuarios'))
+
+    return render_template('users/update_users.html', form=form, user=user)

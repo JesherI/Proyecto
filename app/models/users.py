@@ -39,9 +39,9 @@ class User:
                 return self.id
         else:
             with mydb.cursor() as cursor:
-                sql = 'UPDATE usuarios SET nombre = %s, apellido_paterno = %s , apellido_materno = %s, nombre_de_usuario = %s, tipo_usuario = %s, direccion = %s, telefono = %s, contrasena = %s, foto_perfil = %s'
+                sql = 'UPDATE usuarios SET nombre = %s, apellido_paterno = %s , apellido_materno = %s, nombre_de_usuario = %s, tipo_usuario = %s, direccion = %s, telefono = %s, contrasena = %s'
                 sql += 'WHERE id = %s'
-                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena,self.foto_perfil,self.id)
+                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena,self.id)
                 cursor.execute(sql, val)
                 mydb.commit()
                 return self.id

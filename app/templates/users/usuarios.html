@@ -4,44 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/usuarios.css') }}">
 </head>
 {% block content %}
- <main class="table">
-    <section class="table__header">
-        <h1>USUARIOS</h1>
-    </section>
-    <section class="table__body">
-        <table>
-            <thead>
-                <tr>
-                    <th> Nombre de Usuario </th>
-                    <th> Nombre </th>
-                    <th> Apellido Paterno</th>
-                    <th> Apellido Materno</th>
-                    <th> Tipo de Usuario </th>
-                    <th> Dirección </th>
-                    <th> Telefono </th>
-                </tr>
-            </thead>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.nombre_de_usuario }}</td>
-                    <td>{{ user.nombre }}</td>
-                    <td>{{ user.apellido_paterno }}</td>
-                    <td>{{ user.apellido_materno }}</td>
-                    <td>{{ user.tipo_usuario }}</td>
-                    <td>{{ user.direccion }}</td>
-                    <td>{{ user.telefono }}</td>
-                </tr>
-                
-            </tbody>
-            {% endfor %}
-        </table>
-    </section>
+<center>
+    <br><br>
+    <button><a href="/registro/">AGREGAR NUEVO USUARIO +</a></button>
+    <main class="table">
+        <section class="table__header">
+            <h1>USUARIOS</h1>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Nombre de Usuario </th>
+                        <th> Nombre </th>
+                        <th> Apellido Paterno</th>
+                        <th> Apellido Materno</th>
+                        <th> Tipo de Usuario </th>
+                        <th> Dirección </th>
+                        <th> Telefono </th>
+                        <th> Acciones </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.nombre_de_usuario }}</td>
+                        <td>{{ user.nombre }}</td>
+                        <td>{{ user.apellido_paterno }}</td>
+                        <td>{{ user.apellido_materno }}</td>
+                        <td>{{ user.tipo_usuario }}</td>
+                        <td>{{ user.direccion }}</td>
+                        <td>{{ user.telefono }}</td>
+                        <td>
+                            <button><a href="{{ url_for('user.user_update', id=user.id) }}">Actualizar</a></button>
+                            <form action="{{ url_for('user.eliminar_usuario', user_id=user.id) }}" method="post"
+                                onsubmit="return confirm('¿Estás seguro que deseas eliminar este usuario?')">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="submit" class="button" value="Eliminar">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </section>
     </main>
-    </div>
-    <script src="{{ url_for('static', filename='js/usuarios.js') }}"></script>
-    {% endblock %}
+</center>
+</div>
+<script src="{{ url_for('static', filename='js/usuarios.js') }}"></script>
+{% endblock %}

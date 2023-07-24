@@ -1,0 +1,59 @@
+{% extends "users/layoutadmin.html" %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
+</head>
+
+{% block content %}
+
+<main class="actualizar">
+  <div class="container">
+    <div class="title">Actualizar</div>
+    <div class="content">
+      <form method="post">
+        {{ form.csrf_token }}
+        <div class="user-details">
+          <div class="input-box">
+            {{ form.nombre_de_usuario.label }} {{ form.nombre_de_usuario(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.contrasena.label }} {{ form.contrasena(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.password_confirm.label }} {{ form.password_confirm(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.nombre.label }} 
+            {{ form.nombre(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.apellido_paterno.label }} {{ form.apellido_paterno(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.apellido_materno.label }} {{ form.apellido_materno(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.tipo_usuario.label }}
+            <div class="select">
+              {{ form.tipo_usuario(class='form-control') }}
+            </div>
+          </div>
+          <div class="input-box">
+            {{ form.direccion.label }} {{ form.direccion(size=20, class='form-control') }}
+          </div>
+          <div class="input-box">
+            {{ form.telefono.label }} {{ form.telefono(size=20, class='form-control') }}
+          </div>
+          <div class="button">
+            {{ form.submit(class='btn btn-primary') }}
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<script src="{{ url_for('static', filename='js/usuarios.js') }}"></script>
+{% endblock %}
