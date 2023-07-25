@@ -4,12 +4,17 @@ from forms.user_forms import RegisterForm, ProfileForm
 from werkzeug.utils import secure_filename
 from models.db import get_connection
 from flask_login import login_required
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 
 
 user_views = Blueprint('user',__name__)
 mysql = get_connection()
+
+def update_password(self, new_password):
+        hashed_password = generate_password_hash(new_password)
+        self.contrasena = hashed_password
 
 @user_views . route('/registro/', methods=('GET', 'POST'))
 @login_required
@@ -32,7 +37,7 @@ def register():
             foto_perfil.save(os.path.join(current_app.root_path, 'static/img/profile', nombre_archivo))
             direccion_foto = 'img/profile/' + nombre_archivo
         else:
-            direccion_foto = 'img/foto_default.jpg'  # Ruta de la foto predeterminada
+            direccion_foto = 'img/foto_default.jpg' 
 
         user = User(nombre, apellido_paterno, apellido_materno, nombre_de_usuario, tipo_usuario, direccion, telefono, contrasena, direccion_foto)
         user.save()
@@ -60,10 +65,9 @@ def usuarios():
 @user_views.route('/usuarios/eliminar/<int:user_id>', methods=['POST'])
 @login_required
 def eliminar_usuario(user_id):
-    user = User.__get__(user_id)  # Obtener el usuario por su ID
+    user = User.__get__(user_id)
     if user:
-        user.delete()  # Eliminar el usuario
-        flash('Usuario eliminado exitosamente.', 'success')
+        user.delete() 
     else:
         flash('El usuario no existe.', 'error')
 
@@ -80,8 +84,15 @@ def user_update(id):
 
     if form.validate_on_submit():
         form.populate_obj(user)
+
+        new_password = form.password_confirm.data
+        if new_password:
+            user.update_password(new_password)
+
         user.save()
-        flash('Perfil actualizado correctamente.', 'success')
         return redirect(url_for('user.usuarios'))
 
     return render_template('users/update_users.html', form=form, user=user)
+
+
+

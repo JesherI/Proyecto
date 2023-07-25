@@ -1,7 +1,7 @@
 from .db import get_connection
-from werkzeug.security import generate_password_hash,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
-mydb =get_connection()
+mydb = get_connection()
 
 class User:
 
@@ -15,7 +15,7 @@ class User:
                  telefono,
                  contrasena,
                  foto_perfil='',
-                 id = None):
+                 id=None):
         self.id = id
         self.nombre = nombre
         self.apellido_paterno = apellido_paterno
@@ -30,9 +30,9 @@ class User:
     def save(self):
         if self.id is None:
             with mydb.cursor() as cursor:
-                self.contrasena  = generate_password_hash(self.contrasena)
+                self.contrasena = generate_password_hash(self.contrasena)
                 sql = "INSERT INTO usuarios (nombre,apellido_paterno,apellido_materno,nombre_de_usuario,tipo_usuario,direccion,telefono,contrasena,foto_perfil ) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena, self.foto_perfil)
+                val = (self.nombre, self.apellido_paterno, self.apellido_materno, self.nombre_de_usuario, self.tipo_usuario, self.direccion, self.telefono, self.contrasena, self.foto_perfil)
                 cursor.execute(sql, val)
                 mydb.commit()
                 self.id = cursor.lastrowid
@@ -41,7 +41,7 @@ class User:
             with mydb.cursor() as cursor:
                 sql = 'UPDATE usuarios SET nombre = %s, apellido_paterno = %s , apellido_materno = %s, nombre_de_usuario = %s, tipo_usuario = %s, direccion = %s, telefono = %s, contrasena = %s'
                 sql += 'WHERE id = %s'
-                val = (self.nombre,self.apellido_paterno,self.apellido_materno,self.nombre_de_usuario,self.tipo_usuario,self.direccion,self.telefono,self.contrasena,self.id)
+                val = (self.nombre, self.apellido_paterno, self.apellido_materno, self.nombre_de_usuario, self.tipo_usuario, self.direccion, self.telefono, self.contrasena, self.id)
                 cursor.execute(sql, val)
                 mydb.commit()
                 return self.id
@@ -89,6 +89,16 @@ class User:
             else:
                 return None
     
+    def update_password(self, new_password):
+        # Aquí puedes agregar tus propios criterios de validación para la contraseña,
+        # por ejemplo, longitud mínima, caracteres especiales, etc.
+        # Puedes usar form.validate_field_name(data) para validar campos específicos.
+        # Ejemplo: form.validate_password(new_password)
+
+        # Encripta la nueva contraseña
+        hashed_password = generate_password_hash(new_password)
+        self.contrasena = hashed_password
+
     @staticmethod
     def get_by_password(nombre_de_usuario, contrasena):
         with mydb.cursor(dictionary=True) as cursor:
@@ -122,7 +132,7 @@ class User:
                          foto_perfil=user["foto_perfil"],
                          id=user["id"])
                 )
-        return users  # ¡Mueve el return aquí, fuera del ciclo for!
+        return users
 
     def __str__(self):
         return f"{self.nombre_de_usuario} {self.nombre} {self.apellido_paterno} {self.apellido_materno}"
