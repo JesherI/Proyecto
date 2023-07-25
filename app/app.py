@@ -1,4 +1,4 @@
-import secrets  # Importa la librería para generar un token aleatorio
+import secrets 
 from flask import Flask, render_template, request, url_for, flash, redirect
 from flask_mysqldb import MySQL
 from views.user_views import user_views
@@ -38,10 +38,10 @@ def login():
             if logged_user.contrasena:
                 if logged_user.tipo_usuario == 'admin':
                     login_user(logged_user)
-                    return redirect(url_for('user.index_admin'))  # Redirigir a la página del Admin
+                    return redirect(url_for('user.index_admin')) 
                 elif logged_user.tipo_usuario == 'cajero':
                     login_user(logged_user)
-                    return redirect(url_for('user.index_cajero'))  # Redirigir a la página del Cajero
+                    return redirect(url_for('user.index_cajero')) 
                 else:
                     flash("Tipo de usuario desconocido ...")
             else:

@@ -6,4 +6,4 @@ pip install flask-mysqldb
 pip install flask-wtf 
 pip install Flask-Login
 
-Les agrego la base de datos por el momento tiene solo una tabla y la base de  datos se tiene que llamar prueba
+Tienen que utilizar ahora la nueva base de datos está modificada para que funcione con esta aplicación web
