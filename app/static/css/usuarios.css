@@ -292,9 +292,9 @@ thead th.active,tbody td.active {
 .bubbly-button {
     font-family: "Helvetica", "Arial", sans-serif;
     display: inline-block;
-    font-size: 1em;
     padding: 1em 2em;
-
+    margin-top: 10px;
+    margin-bottom: 10px;
     -webkit-appearance: none;
     appearance: none;
     background-color: #ff0081;

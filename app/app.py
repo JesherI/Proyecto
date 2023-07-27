@@ -9,6 +9,7 @@ from models.model_usuario import ModelUser
 from models.entiti.User import Usuario
 from flask_login import LoginManager, login_user, logout_user, current_user
 from flask_wtf.csrf import CSRFProtect
+from views.vestidos_views import vestidos_views 
 
 app = Flask(__name__)
 db = MySQL(app)
@@ -23,6 +24,7 @@ app.config['SECRET_KEY'] = 'my secret key'
 
 app.register_blueprint(user_views)
 app.register_blueprint(index_views)
+app.register_blueprint(vestidos_views)
 
 @app.route('/login/', methods=('GET', 'POST'))
 def login():

@@ -1,0 +1,14 @@
+{% extends "users/vestidos/layoutvestidos.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
+</head>
+{% block content %}
+<center>
+    <a class="bubbly-button" href="/registro_vestido/">Agregar Nuevo Vestido +</a>
+</center>
+
+<script src="{{ url_for('static', filename='js/vestidos.js') }}"></script>
+{% endblock %}

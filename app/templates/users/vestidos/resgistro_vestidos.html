@@ -1,0 +1,112 @@
+{% extends "users/vestidos/layoutvestidos.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
+</head>
+{% block content %}
+<br>
+<center>
+
+    <div class="container">
+        <div class="title">Agregar Vestido</div>
+        <div class="content">
+            <form action="{{ url_for('vestidos_views.agregar_vestidos') }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="user-details">
+                    <div class="input-box">
+                        <div id="preview">
+                            <img id="imgPreview" src="{{ url_for('static', filename='img/default_image.jpg') }}"
+                                alt="Previsualización">
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <a class="bubbly-button" href="#" id="seleccionarImagen">Seleccionar Imagen</a>
+                        <input type="file" name="img_vestido" id="img_vestido" accept="image/*" style="display: none;"
+                            required>
+                    </div>
+                    <br>
+                    <div class="input-box">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="talla">Talla:</label>
+                        <input type="text" name="talla" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="color">Color:</label>
+                        <input type="text" name="color" required>
+                        <br>
+                    </div>
+                    <div class="input-box">
+                        <label for="categoria">Categoría:</label>
+                        <input type="text" name="categoria" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea name="descripcion" rows="2" cols="25" required></textarea>
+                    </div>
+                    <div class="input-box">
+                        <label for="precio">Precio:</label>
+                        <div class="input-with-icon">
+                            <span class="icon">$</span>
+                            <input type="number" name="precio" step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Agregar Vestido">
+                </div>
+            </form>
+        </div>
+    </div>
+</center>
+<br>
+<script>
+    // Función para validar que se haya seleccionado una imagen antes de enviar el formulario
+    function validarImagenSeleccionada(event) {
+        var inputImagen = document.getElementById('img_vestido');
+        if (!inputImagen.files.length || !inputImagen.value) {
+            event.preventDefault();
+            alert('Selecciona una imagen antes de agregar el vestido.');
+        }
+    }
+
+    // Función para mostrar la previsualización de la imagen seleccionada
+    function mostrarPrevisualizacion(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('imgPreview').src = e.target.result;
+                document.getElementById('preview').style.display = 'flex';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Asignar el evento onchange al input de archivos para mostrar la previsualización al seleccionar un archivo
+    document.getElementById('img_vestido').addEventListener('change', function () {
+        mostrarPrevisualizacion(this);
+    });
+
+    // Asignar el evento onclick al enlace para abrir el selector de archivos
+    document.getElementById('seleccionarImagen').addEventListener('click', function () {
+        document.getElementById('img_vestido').click();
+        return false; // Evitar que el enlace recargue la página
+    });
+
+    // Asignar el evento onSubmit al formulario para realizar la validación antes de enviarlo
+    document.getElementById('miFormulario').addEventListener('submit', validarImagenSeleccionada);
+
+
+    document.getElementById('seleccionarImagen').addEventListener('click', function () {
+        document.getElementById('img_vestido').click();
+        return false;
+    });
+
+</script>
+{% endblock %}

@@ -4,7 +4,7 @@ from forms.user_forms import RegisterForm, ProfileForm
 from werkzeug.utils import secure_filename
 from models.db import get_connection
 from flask_login import login_required
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 import os
 
 
@@ -43,7 +43,7 @@ def register():
         user.save()
         return redirect(url_for('user.register'))
     
-    return render_template('users/registro.html', form=form)
+    return render_template('users/usuarios/registro.html', form=form)
     
 @user_views . route('/Home_Admin')
 @login_required
@@ -60,7 +60,7 @@ def index_cajero():
 def usuarios():
     users = User.get_all()
     form = RegisterForm()
-    return render_template('users/usuarios.html', users=users)
+    return render_template('users/usuarios/usuarios.html', users=users)
 
 @user_views.route('/usuarios/eliminar/<int:user_id>', methods=['POST'])
 @login_required
@@ -92,7 +92,7 @@ def user_update(id):
         user.save()
         return redirect(url_for('user.usuarios'))
 
-    return render_template('users/update_users.html', form=form, user=user)
+    return render_template('users/usuarios/update_users.html', form=form, user=user)
 
 
 
