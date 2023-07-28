@@ -2,7 +2,7 @@ import os
 from flask import Blueprint,render_template, url_for, request, redirect
 from models.db import get_connection
 from flask_login import login_required
-from models.vestidos import agregar_vestido
+from models.vestidos import agregar_vestido, obtener_todos_los_vestidos
 from flask_wtf.csrf import CSRFProtect
 
 vestidos_views = Blueprint('vestidos_views', __name__)
@@ -10,7 +10,17 @@ vestidos_views = Blueprint('vestidos_views', __name__)
 @vestidos_views.route('/vestidos/')
 @login_required
 def ver_vestidos():
-    return render_template('users/vestidos/vestidos.html')
+    vestidos = obtener_todos_los_vestidos()
+
+    vestidos_modificados = []
+
+    for vestido in vestidos:
+        vestido_modificado = list(vestido)
+        vestido_modificado[9] = vestido_modificado[9].replace("\\", "/")
+        vestidos_modificados.append(vestido_modificado)
+
+    return render_template('users/vestidos/vestidos.html', vestidos=vestidos_modificados)
+
 
 @vestidos_views.route('/registro_vestido/', methods=['GET', 'POST'])
 @login_required

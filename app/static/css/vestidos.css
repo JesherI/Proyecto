@@ -81,3 +81,95 @@
       background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
     }
   }
+
+  main {     
+    padding: 50px;
+}
+.vestido-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.vestido-container {
+    flex: 0 0 calc(48% - 20px);
+    /* Tamaño del rectángulo con margen entre ellos */
+    background-color: #f7f9fc; /* Color del rectángulo de información */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px;
+    overflow: hidden; /* Evita que los bordes redondeados afecten a la imagen */
+    display: flex;
+    animation: changeColor 5s infinite;
+}
+.vestido-image {
+    flex: 0 0 200px; /* Tamaño fijo de la imagen */
+    height: 300px; /* Tamaño fijo de la imagen */
+    border-radius: 8px 0 0 8px; /* Esquinas redondeadas en la esquina izquierda */
+    overflow: hidden; /* Para recortar la imagen que se desborda */
+    position: relative; /* Permitir posicionar el texto sobre la imagen */
+}
+.vestido-image img {
+    width: 100%;
+    height: 100%; /* La imagen se ajustará proporcionalmente */
+    object-fit: cover; /* Escala y recorta la imagen de manera centrada */
+    border-radius: 8px; /* Esquinas redondeadas de la imagen */
+}
+.vestido-text {
+    position: absolute;
+    bottom: 10px; /* Espacio desde abajo */
+    left: 10px; /* Espacio desde la izquierda */
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra al texto */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    padding: 5px 10px; /* Espacio interno */
+    border-radius: 4px;
+}
+.vestido-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; /* Espacio interno */
+}
+.vestido-info h2 {
+    margin-top: 0;
+    color: #303030; /* Color del título */
+}
+.vestido-info p {
+    margin: 5px 0;
+    color: #616161; /* Color del texto de información */
+}
+.button-container {
+    display: flex;
+}
+.button-container button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50; /* Color verde para el botón */
+    color: white;
+    cursor: pointer;
+}
+.button-container button:last-child {
+    background-color: #f44336; /* Color rojo para el botón "Borrar" */
+}
+
+@keyframes changeColor {
+    0% {
+        background-color: #f7f9fc;
+    }
+    25% {
+        background-color: #cce0ff;
+    }
+    50% {
+        background-color: #f9d6d5;
+    }
+    75% {
+        background-color: #edffbd;
+    }
+    100% {
+        background-color: #ffb8b8;
+    }
+}

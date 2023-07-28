@@ -8,9 +8,8 @@
 {% block content %}
 <br>
 <center>
-
-    <div class="container">
-        <div class="title">Agregar Vestido</div>
+<div class="container">
+    <div class="title">Agregar Vestido</div>
         <div class="content">
             <form action="{{ url_for('vestidos_views.agregar_vestidos') }}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

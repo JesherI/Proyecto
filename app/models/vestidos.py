@@ -12,3 +12,15 @@ def agregar_vestido(nombre, talla, color, categoria, descripcion, precio, estado
 
     cursor.close()
     mydb.close()
+
+def obtener_todos_los_vestidos():
+    mydb = get_connection()
+    cursor = mydb.cursor()
+    consulta = "SELECT * FROM productos"
+    cursor.execute(consulta)
+
+    vestidos = cursor.fetchall()
+
+    cursor.close()
+    mydb.close()
+    return vestidos

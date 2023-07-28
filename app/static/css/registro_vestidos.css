@@ -1,13 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 
-.actualizar{
-  height: 85vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
 .container{
   max-width: 700px;
   width: 100%;
@@ -29,6 +22,7 @@
   height: 3px;
   width: 30px;
   border-radius: 5px;
+  align-items: center;
   background: linear-gradient(100deg, #f5c6da, #cbdff7,#fefbc6);
 }
 .content form .user-details{
@@ -195,11 +189,6 @@ form .user-details .input-box{
     cursor: pointer;
 }
 
-/* Estilo para el área cuando se está arrastrando un archivo sobre ella */
-#dropArea.dragover {
-    background-color: #f9f9f9;
-    border-color: #666;
-}
 textarea {
     height: 100px;
     width: 100%;

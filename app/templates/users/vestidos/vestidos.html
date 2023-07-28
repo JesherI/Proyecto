@@ -1,14 +1,37 @@
 {% extends "users/vestidos/layoutvestidos.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
-</head>
 {% block content %}
 <center>
     <a class="bubbly-button" href="/registro_vestido/">Agregar Nuevo Vestido +</a>
 </center>
-
-<script src="{{ url_for('static', filename='js/vestidos.js') }}"></script>
+<main>
+    {% for vestido in vestidos %}
+    {% if vestido[7] == "Disponible" %}
+    {% if loop.index % 2 == 1 %}
+    <div class="vestido-row">
+        {% endif %}
+        <div class="vestido-container">
+            <div class="vestido-image">
+                <img src="{{ url_for('static', filename=vestido[9][7:]) }}" alt="Imagen del vestido">
+                <div class="vestido-text">{{ vestido[0] }}</div> <!-- Texto en la imagen -->
+            </div>
+            <div class="vestido-info">
+                <p>Talla: {{ vestido[1] }}</p>
+                <p>Color: {{ vestido[2] }}</p>
+                <p>Color: {{ vestido[3] }}</p>
+                <p>Color: {{ vestido[4] }}</p>
+                <p>Color: {{ vestido[5] }}</p>
+                <p>Color: {{ vestido[6] }}</p>
+                <div class="button-container">
+                    <button>Actualizar</button>
+                    <button>Borrar</button>
+                </div>
+            </div>
+        </div>
+        {% if loop.index % 2 == 0 or loop.last %}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</main>
 {% endblock %}
