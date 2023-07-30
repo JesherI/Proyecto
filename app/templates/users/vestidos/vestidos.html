@@ -16,16 +16,41 @@
                 <div class="vestido-text">{{ vestido[0] }}</div> <!-- Texto en la imagen -->
             </div>
             <div class="vestido-info">
-                <p>Talla: {{ vestido[1] }}</p>
-                <p>Color: {{ vestido[2] }}</p>
-                <p>Color: {{ vestido[3] }}</p>
-                <p>Color: {{ vestido[4] }}</p>
-                <p>Color: {{ vestido[5] }}</p>
-                <p>Color: {{ vestido[6] }}</p>
+                <h2>
+                    <p>{{ vestido[1] }}</p>
+                </h2>
+                <h3>Talla:<h5>
+                        <p> {{ vestido[2] }}</p>
+                    </h5>
+                </h3>
+                <h3>Color:<h5>
+                        <p> {{ vestido[3] }}</p>
+                    </h5>
+                </h3>
+                <h3>Categoria:<h5>
+                        <p> {{ vestido[4] }}</p>
+                    </h5>
+                </h3>
+                <h3>Descripción:<h5>
+                        <p> {{ vestido[5] }}</p>
+                    </h5>
+                </h3>
+                <h3>Precio:<h5>
+                        <p> $ {{ vestido[6] }}</p>
+                    </h5>
+                </h3>
                 <div class="button-container">
-                    <button>Actualizar</button>
-                    <button>Borrar</button>
+                    <form action="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}" method="get">
+                        <button type="submit"
+                            formaction="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}">Actualizar</button>
+                    </form>
+                    <form action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}" method="post"
+                        onsubmit="return confirm('¿Estás seguro de que deseas borrar este vestido?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit">Borrar</button>
+                    </form>
                 </div>
+
             </div>
         </div>
         {% if loop.index % 2 == 0 or loop.last %}

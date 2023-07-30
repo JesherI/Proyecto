@@ -85,91 +85,103 @@
   main {     
     padding: 50px;
 }
+
 .vestido-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 .vestido-container {
-    flex: 0 0 calc(48% - 20px);
-    /* Tamaño del rectángulo con margen entre ellos */
-    background-color: #f7f9fc; /* Color del rectángulo de información */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    border-radius: 8px;
-    overflow: hidden; /* Evita que los bordes redondeados afecten a la imagen */
-    display: flex;
-    animation: changeColor 5s infinite;
+  flex: 0 0 calc(48% - 20px);
+  background-color: #f7f9fc; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px;
+  overflow: hidden; 
+  display: flex;
+  animation: changeColor 5s infinite;
+  margin-bottom: 20px;
 }
 .vestido-image {
-    flex: 0 0 200px; /* Tamaño fijo de la imagen */
-    height: 300px; /* Tamaño fijo de la imagen */
-    border-radius: 8px 0 0 8px; /* Esquinas redondeadas en la esquina izquierda */
-    overflow: hidden; /* Para recortar la imagen que se desborda */
-    position: relative; /* Permitir posicionar el texto sobre la imagen */
+  flex: 0 0 250px; 
+  height: 350px; 
+  border-radius: 8px 0 0 8px;
+  overflow: hidden; 
+  position: relative; 
 }
 .vestido-image img {
-    width: 100%;
-    height: 100%; /* La imagen se ajustará proporcionalmente */
-    object-fit: cover; /* Escala y recorta la imagen de manera centrada */
-    border-radius: 8px; /* Esquinas redondeadas de la imagen */
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  border-radius: 8px;
 }
 .vestido-text {
-    position: absolute;
-    bottom: 10px; /* Espacio desde abajo */
-    left: 10px; /* Espacio desde la izquierda */
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra al texto */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    padding: 5px 10px; /* Espacio interno */
-    border-radius: 4px;
+  position: absolute;
+  bottom: 10px; 
+  left: 10px; 
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px; 
+  border-radius: 4px;
 }
 .vestido-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px; /* Espacio interno */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px; 
 }
 .vestido-info h2 {
-    margin-top: 0;
-    color: #303030; /* Color del título */
+  margin-top: 0;
+  color: #303030; 
 }
 .vestido-info p {
-    margin: 5px 0;
-    color: #616161; /* Color del texto de información */
+  margin: 5px 0;
+  color: #616161; 
 }
 .button-container {
-    display: flex;
+  display: flex;
 }
 .button-container button {
-    margin-right: 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #4CAF50; /* Color verde para el botón */
-    color: white;
-    cursor: pointer;
+  margin-right: 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #74a876;
+  color: white;
+  cursor: pointer;
 }
 .button-container button:last-child {
-    background-color: #f44336; /* Color rojo para el botón "Borrar" */
+  background-color: #ff8880af;
 }
 
 @keyframes changeColor {
-    0% {
-        background-color: #f7f9fc;
-    }
-    25% {
-        background-color: #cce0ff;
-    }
-    50% {
-        background-color: #f9d6d5;
-    }
-    75% {
-        background-color: #edffbd;
-    }
-    100% {
-        background-color: #ffb8b8;
-    }
+  0% {
+      background-color: #f7f9fc;
+  }
+  25% {
+      background-color: #cce0ff;
+  }
+  50% {
+      background-color: #f9d6d5;
+  }
+  75% {
+      background-color: #d6f9d9;
+  }
+  100% {
+      background-color: #f7f9fc;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .vestido-container {
+      flex-basis: 100%; 
+  }
+}
+
+a{
+  color: #fff;
 }
