@@ -88,10 +88,10 @@
     {% endblock %}
     <script src="https://kit.fontawesome.com/84d85cf0cc.js" crossorigin="anonymous"></script>
     <script>
-        document.querySelector('.btn-regresar').addEventListener('click', function (event) {
-            event.preventDefault();
-            window.history.back();
-        });
+         document.querySelector('.btn-regresar').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = "/usuarios/"; 
+    });
     </script>
 </body>
 
