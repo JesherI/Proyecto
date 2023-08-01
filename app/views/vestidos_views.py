@@ -54,12 +54,6 @@ def borrar_vestido(id):
     eliminar_vestido_por_id(id)
     return redirect(url_for('vestidos_views.ver_vestidos'))
 
-import os
-
-import os
-
-import os
-
 @vestidos_views.route('/vestidos/actualizar/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def actualizar_vestido(id):
