@@ -41,13 +41,13 @@
                 </h3>
                 <div class="button-container">
                     <form action="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}" method="get">
-                        <button type="submit"
+                        <button type="submit" class="actualizar"
                             formaction="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}">Actualizar</button>
                     </form>
                     <form action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}" method="post"
                         onsubmit="return confirm('¿Estás seguro de que deseas borrar este vestido?');">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <button type="submit">Borrar</button>
+                        <button type="submit" class="borrar" >Borrar</button>
                     </form>
                 </div>
 

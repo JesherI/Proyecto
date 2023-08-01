@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, current_app
+from flask import Blueprint, render_template
 
 
 user_views = Blueprint('errors',__name__)

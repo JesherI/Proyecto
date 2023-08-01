@@ -291,7 +291,7 @@ select::-ms-expand {
 }
 
 .select::after {
-  content: '\25BC'; 
+  content: '\25BC';
   position: absolute;
   top: 0;
   right: 10px;
@@ -304,10 +304,12 @@ select::-ms-expand {
   transition: .25s all ease;
 }
 
-select:hover, .select:focus-within {
+select:hover,
+.select:focus-within {
   border-color: #9b59b6;
 }
 
-.select:hover::after, .select:focus-within::after {
+.select:hover::after,
+.select:focus-within::after {
   color: #9b59b6;
 }

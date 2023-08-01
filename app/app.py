@@ -61,7 +61,6 @@ def logout():
         logout_user()
     return redirect(url_for('login'))
 
-# Función para evitar el caché del navegador
 @app.after_request
 def add_header(response):
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'

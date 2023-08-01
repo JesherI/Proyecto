@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
-    font-family: 'poppins',sans-serif;
+    font-family: 'poppins', sans-serif;
 }
 
 .btn-regresar {
@@ -11,19 +12,21 @@
     color: #000000;
     text-decoration: none;
     border-radius: 5px;
-  }
-
-body{
-    background: linear-gradient(100deg, #f5c6da, #cbdff7,#fefbc6);
 }
-section{
+
+body {
+    background: linear-gradient(100deg, #f5c6da, #cbdff7, #fefbc6);
+}
+
+section {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
     width: 100%;
 }
-.form-box{
+
+.form-box {
     position: relative;
     width: 400px;
     height: 450px;
@@ -34,21 +37,24 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff73;
-    box-shadow: 0px 30px 40px #0000007a ;
+    background-color: #ffffff2c;
+    box-shadow: 0px 30px 40px #0000007a;
 }
-h2{
+
+h2 {
     font-size: 2em;
     color: #000000;
     text-align: center;
 }
-.inputbox{
+
+.inputbox {
     position: relative;
     margin: 30px 0;
     width: 310px;
     border-bottom: 2px solid #fff;
 }
-.inputbox label{
+
+.inputbox label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -58,10 +64,12 @@ h2{
     pointer-events: none;
     transition: .5s;
 }
-input:focus ~ label,
-input:valid ~ label{
-top: -5px;
+
+input:focus~label,
+input:valid~label {
+    top: -5px;
 }
+
 .inputbox input {
     width: 100%;
     height: 50px;
@@ -69,36 +77,41 @@ top: -5px;
     border: none;
     outline: none;
     font-size: 1em;
-    padding:0 35px 0 5px;
+    padding: 0 35px 0 5px;
     color: #000000;
 }
-.inputbox ion-icon{
+
+.inputbox ion-icon {
     position: absolute;
     right: 8px;
     color: #000000;
     font-size: 1.2em;
     top: 20px;
 }
-.forget{
-    margin: -15px 0 15px ;
+
+.forget {
+    margin: -15px 0 15px;
     font-size: .9em;
     color: #fff;
     display: flex;
-    justify-content: space-between;  
+    justify-content: space-between;
 }
 
-.forget label input{
+.forget label input {
     margin-right: 3px;
-    
+
 }
-.forget label a{
+
+.forget label a {
     color: #fff;
     text-decoration: none;
 }
-.forget label a:hover{
+
+.forget label a:hover {
     text-decoration: underline;
 }
-button{
+
+button {
     width: 100%;
     height: 40px;
     border-radius: 40px;
@@ -109,41 +122,47 @@ button{
     font-size: 1em;
     font-weight: 600;
 }
-.register{
+
+.register {
     font-size: .9em;
     color: #fff;
     text-align: center;
     margin: 25px 0 10px;
 }
-.register p a{
+
+.register p a {
     text-decoration: none;
     color: #fff;
     font-weight: 600;
 }
-.register p a:hover{
+
+.register p a:hover {
     text-decoration: underline;
 }
+
 select {
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    -ms-appearance:none;
-    appearance:none;
-    outline:0;
-    box-shadow:none;
-    border:0!important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
     background: #ffffff;
     background-image: none;
     flex: 1;
     padding: 0 .5em;
-    color:#000000;
-    cursor:pointer;
+    color: #000000;
+    cursor: pointer;
     font-size: 1em;
     font-family: 'Open Sans', sans-serif;
- }
- select::-ms-expand {
+}
+
+select::-ms-expand {
     display: none;
- }
- .select {
+}
+
+.select {
     border: 2px solid transparent;
     position: relative;
     display: flex;
@@ -153,18 +172,20 @@ select {
     background: #d9d9d900;
     overflow: hidden;
     border-radius: .25em;
- }
- .select::after {
+}
+
+.select::after {
     content: '\25BC';
     position: absolute;
     top: 0;
     right: 0;
     padding: 0 1em;
     background: #ffffff00;
-    cursor:pointer;
-    pointer-events:none;
-    transition:.25s all ease;
- }
- .select:hover::after {
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.select:hover::after {
     color: #ffffff;
- }
+}
