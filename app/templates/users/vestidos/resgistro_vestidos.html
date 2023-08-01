@@ -8,8 +8,8 @@
 {% block content %}
 <br>
 <center>
-<div class="container">
-    <div class="title">Agregar Vestido</div>
+    <div class="container">
+        <div class="title">Agregar Vestido</div>
         <div class="content">
             <form action="{{ url_for('vestidos_views.agregar_vestidos') }}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -32,7 +32,12 @@
                     </div>
                     <div class="input-box">
                         <label for="talla">Talla:</label>
-                        <input type="text" name="talla" required>
+                        <select name="talla" id="talla" class="select">
+                            <option value="CH">CH</option>
+                            <option value="M">M</option>
+                            <option value="G">G</option>
+                            <option value="EXG">EXG</option>
+                        </select>
                     </div>
                     <div class="input-box">
                         <label for="color">Color:</label>
@@ -41,7 +46,12 @@
                     </div>
                     <div class="input-box">
                         <label for="categoria">Categoría:</label>
-                        <input type="text" name="categoria" required>
+                        <select name="categoria" id="categoria" class="select" required>
+                            <option value="Noche">DE NOCHE</option>
+                            <option value="Gala">GALA</option>
+                            <option value="Formal">FORMAL</option>
+                            <option value="Casual">CASUAL</option>
+                        </select>
                     </div>
                     <div class="input-box">
                         <label for="descripcion">Descripción:</label>
@@ -64,7 +74,6 @@
 </center>
 <br>
 <script>
-    // Función para validar que se haya seleccionado una imagen antes de enviar el formulario
     function validarImagenSeleccionada(event) {
         var inputImagen = document.getElementById('img_vestido');
         if (!inputImagen.files.length || !inputImagen.value) {
@@ -73,7 +82,6 @@
         }
     }
 
-    // Función para mostrar la previsualización de la imagen seleccionada
     function mostrarPrevisualizacion(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -87,18 +95,15 @@
         }
     }
 
-    // Asignar el evento onchange al input de archivos para mostrar la previsualización al seleccionar un archivo
     document.getElementById('img_vestido').addEventListener('change', function () {
         mostrarPrevisualizacion(this);
     });
 
-    // Asignar el evento onclick al enlace para abrir el selector de archivos
     document.getElementById('seleccionarImagen').addEventListener('click', function () {
         document.getElementById('img_vestido').click();
-        return false; // Evitar que el enlace recargue la página
+        return false; 
     });
 
-    // Asignar el evento onSubmit al formulario para realizar la validación antes de enviarlo
     document.getElementById('miFormulario').addEventListener('submit', validarImagenSeleccionada);
 
 
@@ -106,6 +111,5 @@
         document.getElementById('img_vestido').click();
         return false;
     });
-
 </script>
 {% endblock %}

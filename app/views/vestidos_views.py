@@ -56,6 +56,10 @@ def borrar_vestido(id):
 
 import os
 
+import os
+
+import os
+
 @vestidos_views.route('/vestidos/actualizar/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def actualizar_vestido(id):
@@ -85,7 +89,6 @@ def actualizar_vestido(id):
         else:
             img_path_nueva = img_path_anterior
 
-        img_path_nueva = img_path_nueva.replace("\\", "/")
         try:
             with get_connection() as mydb:
                 cursor = mydb.cursor()

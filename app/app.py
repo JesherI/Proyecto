@@ -74,4 +74,4 @@ if __name__ == "__main__":
     app.register_error_handler(404, pagina_no_encontrada)
     app.register_error_handler(401, pagina_protegida)
     app.config.from_object(config['development'])
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=4000)

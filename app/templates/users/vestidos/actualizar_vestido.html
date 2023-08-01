@@ -3,7 +3,6 @@
 {% block content %}
 <main>
     <center>
-
         <div class="container">
             <div class="title">Actualizar Vestido</div>
             <div class="content">
@@ -12,14 +11,14 @@
                         <div class="input-box">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div id="preview">
-                                <img id="imgPreview" src="{{ url_for('static', filename=vestido[9][7:]) }}"
+                                <img id="imgPreview" src="{{ url_for('static', filename=vestido[9][7:].replace('\\', '/')) }}"
                                     alt="Imagen actual del vestido">
                             </div>
                         </div>
                         <div class="input-box">
                             <a class="bubbly-button" href="#" id="seleccionarImagen">Seleccionar Imagen</a>
                             <input type="file" name="img_vestido" id="img_vestido" accept="image/*"
-                                style="display: none;" required>
+                                style="display: none;">
                         </div>
                         <div class="input-box">
                             <label for="nombre">Nombre:</label>
@@ -28,7 +27,12 @@
 
                         <div class="input-box">
                             <label for="talla">Talla:</label>
-                            <input type="text" id="talla" name="talla" value="{{ vestido[2] }}" required>
+                            <select id="talla" name="talla" class="select" required>
+                                <option value="CH" {% if vestido[2] == 'CH' %}selected{% endif %}>CH</option>
+                                <option value="M" {% if vestido[2] == 'M' %}selected{% endif %}>M</option>
+                                <option value="G" {% if vestido[2] == 'G' %}selected{% endif %}>G</option>
+                                <option value="EXG" {% if vestido[2] == 'EXG' %}selected{% endif %}>EXG</option>
+                            </select>
                         </div>
 
                         <div class="input-box">
@@ -38,7 +42,12 @@
 
                         <div class="input-box">
                             <label for="categoria">Categoría:</label>
-                            <input type="text" id="categoria" name="categoria" value="{{ vestido[4] }}" required>
+                            <select id="categoria" name="categoria" class="select" required>
+                                <option value="Noche" {% if vestido[4] == 'Noche' %}selected{% endif %}>NOCHE</option>
+                                <option value="Gala" {% if vestido[4] == 'Gala' %}selected{% endif %}>GALA</option>
+                                <option value="Formal" {% if vestido[4] == 'Formal' %}selected{% endif %}>FORMAL</option>
+                                <option value="Casual" {% if vestido[4] == 'Casual' %}selected{% endif %}>CASUAL</option>
+                            </select>
                         </div>
 
                         <div class="input-box">
@@ -48,7 +57,11 @@
 
                         <div class="input-box">
                             <label for="precio">Precio:</label>
-                            <input type="number" id="precio" name="precio" value="{{ vestido[6] }}" required>
+                            <div class="input-with-icon">
+                                <span class="icon">$</span>
+                                <input type="number" id="precio" name="precio" value="{{ vestido[6] }}" required>
+                            </div>
+                        
                         </div>
                         <div class="button">
                             <input type="submit" value="Actualizar Vestido">
@@ -57,7 +70,7 @@
     </center>
 </main>
 <script>
-    document.getElementById("seleccionarImagen").addEventListener("click", function () {
+document.getElementById("seleccionarImagen").addEventListener("click", function () {
         document.getElementById("img_vestido").click();
     });
 
