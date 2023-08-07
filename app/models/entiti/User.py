@@ -14,7 +14,7 @@ class Usuario(UserMixin):
         self.telefono = telefono
         self.contrasena = contrasena
         self.foto_perfil = foto_perfil
-    
+
     @classmethod
-    def check_password(self,hashed_password,contrasena):
-        return check_password_hash(hashed_password,contrasena)
+    def check_password(cls, hashed_password, contrasena):
+        return check_password_hash(hashed_password, contrasena)

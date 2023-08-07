@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-08-2023 a las 03:56:35
+-- Tiempo de generación: 06-08-2023 a las 03:22:06
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -61,6 +61,30 @@ CREATE TABLE `compras` (
   `total` decimal(10,2) DEFAULT NULL,
   `id_producto` int(11) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalles_apartado`
+--
+
+CREATE TABLE `detalles_apartado` (
+  `id_detalle_apartado` int(11) NOT NULL,
+  `id_apartado` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalles_venta`
+--
+
+CREATE TABLE `detalles_venta` (
+  `id_detalle_venta` int(11) NOT NULL,
+  `id_venta` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +180,22 @@ ALTER TABLE `compras`
   ADD KEY `compras_ibfk_1` (`id_usuario`);
 
 --
+-- Indices de la tabla `detalles_apartado`
+--
+ALTER TABLE `detalles_apartado`
+  ADD PRIMARY KEY (`id_detalle_apartado`),
+  ADD KEY `id_apartado_idx` (`id_apartado`),
+  ADD KEY `id_producto_idx` (`id_producto`);
+
+--
+-- Indices de la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  ADD PRIMARY KEY (`id_detalle_venta`),
+  ADD KEY `id_venta_idx` (`id_venta`),
+  ADD KEY `id_producto_idx` (`id_producto`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -188,6 +228,18 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `compras`
   MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_apartado`
+--
+ALTER TABLE `detalles_apartado`
+  MODIFY `id_detalle_apartado` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -225,6 +277,20 @@ ALTER TABLE `cliente`
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
+
+--
+-- Filtros para la tabla `detalles_apartado`
+--
+ALTER TABLE `detalles_apartado`
+  ADD CONSTRAINT `detalles_apartado_ibfk_1` FOREIGN KEY (`id_apartado`) REFERENCES `apartado` (`id_apartado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_apartado_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  ADD CONSTRAINT `detalles_venta_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `compras` (`id_compra`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

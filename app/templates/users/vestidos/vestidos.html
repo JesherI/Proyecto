@@ -43,13 +43,8 @@
                         <button type="submit" class="actualizar"
                             formaction="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}">Actualizar</button>
                     </form>
-                    <form action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}" method="post"
-                        onsubmit="return confirm('¿Estás seguro de que deseas borrar este vestido?');">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="borrar" >Borrar</button>
-                    </form>
+                    <button class="delete-button" data-action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}">Borrar</button>
                 </div>
-
             </div>
         </div>
         {% if loop.index % 2 == 0 or loop.last %}
@@ -57,5 +52,48 @@
     {% endif %}
     {% endif %}
     {% endfor %}
+
+    {% if vestidos|length == 0 %}
+    <p>No hay vestidos disponibles.</p>
+    {% endif %}
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>¿Estás seguro de que deseas borrar este vestido?</h3>
+            <div class="modal-buttons">
+                <button class="modal-button" id="confirmButton">Borrar</button>
+                <button class="modal-button modal-button-cancel" id="cancelButton">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('deleteModal');
+        var confirmButton = document.getElementById('confirmButton');
+        var cancelButton = document.getElementById('cancelButton');
+
+        var deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                modal.style.display = 'block';
+                confirmButton.setAttribute('data-action', button.getAttribute('data-action'));
+            });
+        });
+
+        confirmButton.addEventListener('click', function () {
+            var actionUrl = confirmButton.getAttribute('data-action');
+            if (actionUrl) {
+                window.location.href = actionUrl;
+            }
+            modal.style.display = 'none';
+        });
+
+        cancelButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+    });
+</script>
 {% endblock %}

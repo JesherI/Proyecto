@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "users/layoutcajero.html" %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-f3yniR3Qec/wI/2RNtUft9eSJ7V9ny5IdEVCJ0rRv9hMaWTQuMQuhDEeqF8Ee3fNKqZSS7JELvcmA0e9yGsd4Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
 </head>
-<body>
-    Binevenido cajero{{ current_user.nombre }} {{ current_user.apellido_paterno}} {{ current_user.apellido_materno}}
-    <a  href="{{ url_for('logout') }}">Cerrar sesión</a>
-</body>
-</html>
+{% block content %}
+<main>
+  <section class="section-1">
+    <div class="slogan">
+      <h2> Bienvenido {{ current_user.nombre }} {{ current_user.apellido_paterno}} {{ current_user.apellido_materno}}
+      </h2> <br>
+      <h1 class="company-title">VESTIDOS DE GALA</h1>
+      <br>
+      <h2 class="company-slogan">
+        Descubre nuestra selección de vestidos únicos y elegantes que se mantienen a la vanguardia de las tendencias.
+      </h2>
+    </div>
+    <div class="home-computer-container">
+      <img class="home-computer" src="{{ url_for('static', filename='img/LULA.png') }}" class="home-img">
+    </div>
+  </section>
+</main>
+<div class="footer-divider"></div>
+<footer class="footer">
+  <div class="footer-section">
+    <h3>Encuéntranos en:</h3>
+    <a href="https://goo.gl/maps/GhCYbxVpwRF5KuUb7">
+      <p><i class="fas fa-map-marker-alt" style="color: #000000;"></i> Av. Del Agua no.24 Fracc. Nuevos horizontes <br> Heroica Huamantla,Mexico</p>
+    </a>
+  </div>
+  <div class="footer-section">
+    <h3><i class="fas fa-phone"></i></h3>
+    <p>+52 247 471 0115</p>
+  </div>
+</footer>
+{% endblock %}

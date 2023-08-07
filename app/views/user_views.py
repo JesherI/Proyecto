@@ -32,7 +32,7 @@ def register():
         telefono = form.telefono.data
         foto_perfil = form.foto_perfil.data
 
-        if foto_perfil:  # Verificar si se ha enviado una imagen
+        if foto_perfil:
             nombre_archivo = secure_filename(foto_perfil.filename)
             foto_perfil.save(os.path.join(current_app.root_path, 'static/img/profile', nombre_archivo))
             direccion_foto = 'img/profile/' + nombre_archivo
@@ -93,6 +93,3 @@ def user_update(id):
         return redirect(url_for('user.usuarios'))
 
     return render_template('users/usuarios/update_users.html', form=form, user=user)
-
-
-

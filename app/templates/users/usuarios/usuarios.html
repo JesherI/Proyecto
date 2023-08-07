@@ -1,11 +1,4 @@
 {% extends "users/usuarios/layoutusers.html" %}
-
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
-</head>
 {% block content %}
 <center>
     <br><br>
@@ -39,21 +32,50 @@
                         <td>{{ user.direccion }}</td>
                         <td>{{ user.telefono }}</td>
                         <td>
-                            <button><a href="{{ url_for('user.user_update', id=user.id) }}">Actualizar</a></button>
-                            <form action="{{ url_for('user.eliminar_usuario', user_id=user.id) }}" method="post"
-                                onsubmit="return confirm('¿Estás seguro que deseas eliminar este usuario?')">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <input type="submit" class="button" value="Eliminar">
-                            </form>
+                            <button><a href="{{ url_for('user.user_update', id=user.id) }}">Actualizar</a></button><br> <br>
+                            <button class="deleteButton" data-action="{{ url_for('user.eliminar_usuario', user_id=user.id) }}">Eliminar</button>
                         </td>
                     </tr>
                     {% endfor %}
-
                 </tbody>
             </table>
         </section>
     </main>
 </center>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>¿Estás seguro que deseas eliminar este usuario?</h3>
+        <div class="modal-buttons">
+            <button class="modal-button" id="cancelButton">Cancelar</button>
+            <form action="" method="post" id="deleteForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="submit" class="modal-button modal-button-danger" value="Eliminar">
+            </form>
+        </div>
+    </div>
 </div>
+
 <script src="{{ url_for('static', filename='js/usuarios.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript para el diálogo modal
+        var modal = document.getElementById('deleteModal');
+        var cancelButton = document.getElementById('cancelButton');
+        var deleteForm = document.getElementById('deleteForm');
+
+        var deleteButtons = document.querySelectorAll('.deleteButton');
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                modal.style.display = 'block';
+                deleteForm.action = button.getAttribute('data-action');
+            });
+        });
+
+        cancelButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+    });
+</script>
 {% endblock %}

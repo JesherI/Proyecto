@@ -169,3 +169,48 @@
   a {
     color: #fff;
   }
+  
+  .delete-button {
+    background-color:#ff9292;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    width: 40%;
+    text-align: center;
+}
+
+.modal-buttons {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.modal-button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #ff9191;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.modal-button-cancel {
+    background-color: #9c9c9c;
+}

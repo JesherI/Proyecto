@@ -24,25 +24,15 @@
                     <h2>INICIO DE SESIÓN</h2>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     {% with messages = get_flashed_messages() %}
-
                     {% if messages %}
                     {% for message in messages %}
                     {{ message }}
                     {% endfor %}
                     {% endif %}
-
                     {% endwith %}
                     <div class="inputbox">
                         <input type="text" name="username" required>
                         <label for="">NOMBRE DE USUARIO</label>
-                    </div>
-                    <div class="inputbox">
-                        <div class="input-box">
-                            <select name="tipeuser" class="select">
-                                <option value="cajero">CAJERO</option>
-                                <option value="admin">ADMINISTRADOR</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="inputbox">
                         <input type="password" name="contrasena" required>
@@ -52,6 +42,7 @@
                 </form>
             </div>
         </div>
+        
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

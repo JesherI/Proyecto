@@ -1,6 +1,9 @@
 {% extends "users/layoutadmin.html" %}
 
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-f3yniR3Qec/wI/2RNtUft9eSJ7V9ny5IdEVCJ0rRv9hMaWTQuMQuhDEeqF8Ee3fNKqZSS7JELvcmA0e9yGsd4Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
 </head>
 {% block content %}
@@ -24,13 +27,12 @@
 <footer class="footer">
   <div class="footer-section">
     <h3>Encuéntranos en:</h3>
-    <a
-      href="https://www.google.com/maps/dir/19.369754,-97.9810878/19.3209903,-97.93025/@19.3432906,-97.9959905,13z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu">
-      <p>Av. Del Agua no.24 Fracc. Nuevos horizontes <br> Heroica Huamantla,Mexico</p>
+    <a href="https://goo.gl/maps/GhCYbxVpwRF5KuUb7">
+      <p><i class="fas fa-map-marker-alt" style="color: #000000;"></i> Av. Del Agua no.24 Fracc. Nuevos horizontes <br> Heroica Huamantla,Mexico</p>
     </a>
   </div>
   <div class="footer-section">
-    <h3>Numero: </h3>
+    <h3><i class="fas fa-phone"></i></h3>
     <p>+52 247 471 0115</p>
   </div>
 </footer>

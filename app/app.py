@@ -10,6 +10,7 @@ from models.entiti.User import Usuario
 from flask_login import LoginManager, login_user, logout_user, current_user
 from flask_wtf.csrf import CSRFProtect
 from views.vestidos_views import vestidos_views 
+from views.ventas_views import ventas_views
 
 app = Flask(__name__)
 db = MySQL(app)
@@ -25,35 +26,34 @@ app.config['SECRET_KEY'] = 'my secret key'
 app.register_blueprint(user_views)
 app.register_blueprint(index_views)
 app.register_blueprint(vestidos_views)
+app.register_blueprint(ventas_views)
 
 @app.route('/login/', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        tipeuser = request.form['tipeuser']
         password = request.form['contrasena']
 
-        usuario = Usuario(0, 0, 0, 0, username, tipeuser, 0, 0, password, 0)
+        usuario = Usuario(0, 0, 0, 0, username, 0, 0, 0, password, 0)
         logged_user = ModelUser.login(db, usuario)
 
         if logged_user is not None:
             if logged_user.contrasena:
                 if logged_user.tipo_usuario == 'admin':
                     login_user(logged_user)
-                    return redirect(url_for('user.index_admin')) 
+                    return redirect(url_for('user.index_admin'))
                 elif logged_user.tipo_usuario == 'cajero':
                     login_user(logged_user)
-                    return redirect(url_for('user.index_cajero')) 
+                    return redirect(url_for('user.index_cajero'))
                 else:
                     flash("Tipo de usuario desconocido ...")
             else:
                 flash("Contraseña no válida ...")
-            return render_template('users/inicio_sesión.html', token=secrets.token_urlsafe(16))
         else:
             flash("Usuario no encontrado ...")
-            return render_template('users/inicio_sesión.html', token=secrets.token_urlsafe(16))
-    else:
-        return render_template('users/inicio_sesión.html', token=secrets.token_urlsafe(16))
+    
+    return render_template('users/inicio_sesión.html', token=secrets.token_urlsafe(16))
+
 
 @app.route('/logout/', methods=['POST'])
 def logout():

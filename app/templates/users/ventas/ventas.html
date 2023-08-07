@@ -1,0 +1,19 @@
+{% extends "users/ventas/layoutventas.html" %}
+{% block content %}
+<h1>Listado de Vestidos</h1>
+<ul>
+    {% for vestido in vestidos %}
+        <li>
+            <strong>Nombre:</strong> {{ vestido[1] }} <br>
+            <strong>Talla:</strong> {{ vestido[2] }} <br>
+            <strong>Color:</strong> {{ vestido[4] }} <br>
+            <strong>Color:</strong> {{ vestido[5] }} <br>
+            <strong>Color:</strong> {{ vestido[6] }} <br>
+            <strong>Color:</strong> {{ vestido[7] }} <br>
+            <strong>Color:</strong> {{ vestido[8] }} <br>
+            <img src="{{ url_for('static', filename=vestido[9][7:].replace('\\', '/')) }}" alt="Imagen del vestido">
+        </li>
+        <br>
+    {% endfor %}
+</ul>
+{% endblock %}
