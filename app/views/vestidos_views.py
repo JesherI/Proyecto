@@ -10,16 +10,26 @@ vestidos_views = Blueprint('vestidos_views', __name__)
 @vestidos_views.route('/vestidos/')
 @login_required
 def ver_vestidos():
-    vestidos = obtener_todos_los_vestidos()
+    page = request.args.get('page', 1, type=int)  # Get the page number from the query parameter
+    items_per_page = 10  # Number of dresses to display per page
+
+    all_vestidos = obtener_todos_los_vestidos()
+    total_items = len(all_vestidos)
+    
+    start_index = (page - 1) * items_per_page
+    end_index = start_index + items_per_page
+    
+    vestidos = all_vestidos[start_index:end_index]
 
     vestidos_modificados = []
-
+    
     for vestido in vestidos:
         vestido_modificado = list(vestido)
         vestido_modificado[9] = vestido_modificado[9].replace("\\", "/")
         vestidos_modificados.append(vestido_modificado)
 
-    return render_template('users/vestidos/vestidos.html', vestidos=vestidos_modificados)
+    return render_template('users/vestidos/vestidos.html', vestidos=vestidos_modificados, page=page, total_pages=total_items // items_per_page + 1)
+
 
 
 @vestidos_views.route('/registro_vestido/', methods=['GET', 'POST'])

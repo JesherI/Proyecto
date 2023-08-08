@@ -43,7 +43,8 @@
                         <button type="submit" class="actualizar"
                             formaction="{{ url_for('vestidos_views.actualizar_vestido', id=vestido[0]) }}">Actualizar</button>
                     </form>
-                    <button class="delete-button" data-action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}">Borrar</button>
+                    <button class="delete-button"
+                        data-action="{{ url_for('vestidos_views.borrar_vestido', id=vestido[0]) }}">Borrar</button>
                 </div>
             </div>
         </div>
@@ -56,7 +57,19 @@
     {% if vestidos|length == 0 %}
     <p>No hay vestidos disponibles.</p>
     {% endif %}
+    <div class="pagination">
+        <a href="{{ url_for('vestidos_views.ver_vestidos', page=page-1) }}"
+            class="pagination-arrow {% if page == 1 %}disabled{% endif %}"><i class="fas fa-arrow-left"></i></a>
 
+        {% for p in range(1, total_pages + 1) %}
+        <a href="{{ url_for('vestidos_views.ver_vestidos', page=p) }}"
+            class="pagination-number {% if p == page %}active{% endif %}">{{ p }}</a>
+        {% endfor %}
+
+        <a href="{{ url_for('vestidos_views.ver_vestidos', page=page+1) }}"
+            class="pagination-arrow {% if page == total_pages %}disabled{% endif %}"><i
+                class="fas fa-arrow-right"></i></a>
+    </div>
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <h3>¿Estás seguro de que deseas borrar este vestido?</h3>

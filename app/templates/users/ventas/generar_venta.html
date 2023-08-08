@@ -1,0 +1,31 @@
+{% extends "users/ventas/layoutventas.html" %}
+
+{% block content %}
+<form action="{{ url_for('ventas_views.insertar_cliente') }}" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required><br>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" name="telefono" required><br>
+
+    <button type="submit">Agregar Cliente</button>
+</form>
+<h1>Listado de Vestidos</h1>
+<div class="vestido-list">
+    {% for vestido in vestidos %}
+    <div class="vestido-card">
+        <img class="vestido-img" src="{{ url_for('static', filename=vestido[9][7:].replace('\\', '/')) }}"
+            alt="Imagen del vestido">
+        <div class="vestido-info">
+            <strong> {{ vestido[1] }} </strong><br>
+            <strong>Talla:</strong> {{ vestido[2] }} <br>
+            <strong>Tipo:</strong> {{ vestido[4] }} <br>
+            <strong>Precio: $</strong> {{ vestido[6] }} <br>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

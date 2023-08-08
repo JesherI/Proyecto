@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-08-2023 a las 03:22:06
+-- Tiempo de generación: 08-08-2023 a las 04:17:43
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -59,7 +59,6 @@ CREATE TABLE `compras` (
   `id_cliente` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
-  `id_producto` int(11) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -147,9 +146,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `nombre_de_usuario`, `tipo_usuario`, `direccion`, `telefono`, `contrasena`, `foto_perfil`) VALUES
-(1, 'root', 'root', 'root', 'root', 'admin', 'root', 'root', 'pbkdf2:sha256:600000$QAU0SJ751dkyCu5X$36e11db4c90ea78d99daa4143078aa6fec7f4aa852c1562d61ddfbb6b56da79b', 'img/foto_default.jpg'),
 (2, 'Evelyn', 'Garcia', 'Montiel', 'Eve', 'cajero', 'Av.del agua', '24747758865', 'pbkdf2:sha256:600000$jNqGKIQtdDbtxQvl$5c7b427d3f668e36425705890219a8f3b9a2d499698e0afee54ee7875da0d758', 'img/foto_default.jpg'),
-(3, 'Miriam', 'Montiel', 'Flores', 'Miriam', 'admin', 'Av.del agua', '2476923880', 'pbkdf2:sha256:600000$gpp0bsDwf3MHGMQ2$2a5ab913d390abcdef954eee71a00a93679576c2f1f11b1d251d2fd21d5521dc', 'img/foto_default.jpg');
+(3, 'Miriam', 'Montiel', 'Flores', 'Miriam', 'admin', 'Av.del agua', '2476923880', 'pbkdf2:sha256:600000$gpp0bsDwf3MHGMQ2$2a5ab913d390abcdef954eee71a00a93679576c2f1f11b1d251d2fd21d5521dc', 'img/foto_default.jpg'),
+(5, 'root', 'root', 'root', 'root', 'admin', 'root', 'root', 'pbkdf2:sha256:600000$BNxRWVQcaxQcaY6q$a0ad70521fc2ab60328c12a75f213e9e100def753eac75085f2d3b341d7f5d12', 'img/foto_default.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -176,7 +175,6 @@ ALTER TABLE `cliente`
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compra`),
   ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_producto` (`id_producto`),
   ADD KEY `compras_ibfk_1` (`id_usuario`);
 
 --
@@ -251,7 +249,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -275,8 +273,7 @@ ALTER TABLE `cliente`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `detalles_apartado`
