@@ -10,8 +10,8 @@ vestidos_views = Blueprint('vestidos_views', __name__)
 @vestidos_views.route('/vestidos/')
 @login_required
 def ver_vestidos():
-    page = request.args.get('page', 1, type=int)  # Get the page number from the query parameter
-    items_per_page = 10  # Number of dresses to display per page
+    page = request.args.get('page', 1, type=int)  
+    items_per_page = 10  
 
     all_vestidos = obtener_todos_los_vestidos()
     total_items = len(all_vestidos)
