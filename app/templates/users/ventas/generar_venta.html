@@ -1,29 +1,38 @@
 {% extends 'users/ventas/layoutventas.html' %}
 
 {% block content %}
+  <div class="venta-form">
+    <h2>Generar Venta</h2>
+    <form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
+      <div class="input-group">
+        <label for="nombre">Nombre del Cliente:</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
 
-<h2>Generar Venta</h2>
-<form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <label for="nombre">Nombre del Cliente:</label>
-    <input type="text" id="nombre" name="nombre" required><br>
+      <div class="input-group">
+        <label for="apellido">Apellido del Cliente:</label>
+        <input type="text" id="apellido" name="apellido" required>
+      </div>
 
-    <label for="apellido">Apellido del Cliente:</label>
-    <input type="text" id="apellido" name="apellido" required><br>
+      <div class="input-group">
+        <label for="abono">Abono:</label>
+        <input type="number" id="abono" name="abono" required>
+      </div>
 
-    <label for="telefono">Teléfono del Cliente:</label>
-    <input type="text" id="telefono" name="telefono" required><br>
+      <div class="product-list">
+        <h3>Productos Comprados:</h3>
+        {% for producto in productos %}
+          <label class="product">
+            <input type="checkbox" name="productos" value="{{ producto[0] }}">
+            <div class="product-info">
+              <img src="{{ url_for('static', filename=producto[9][7:].replace('\\', '/')) }}" alt="{{ producto[1] }}">
+              <span>{{ producto[1] }}</span>
+            </div>
+          </label>
+        {% endfor %}
+      </div>
 
-    <label for="abono">Abono:</label>
-    <input type="number" id="abono" name="abono" required><br>
-
-    <label>Productos Comprados:</label><br>
-    {% for producto in productos %}
-    <input type="checkbox" name="productos" value="{{ producto[0] }}"> {{ producto[1] }}<br>
-    {% endfor %}
-
-    <br>
-    <button type="submit">Generar Venta</button>
-</form>
-
+      <button type="submit">Generar Venta</button>
+    </form>
+  </div>
 {% endblock %}

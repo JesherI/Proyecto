@@ -3,6 +3,7 @@ from models.db import get_connection
 from flask_login import login_required,current_user
 from datetime import datetime
 import mysql.connector.errors
+from models.vestidos import obtener_vestido_por_id
 
 
 ventas_views = Blueprint('ventas_views', __name__)
@@ -15,6 +16,7 @@ def ver_ventas():
 @ventas_views.route('/generar_venta/', methods=['GET', 'POST'])
 @login_required
 def generar_venta():
+    vestido = obtener_vestido_por_id(id)
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']
@@ -74,19 +76,22 @@ def generar_venta():
             cursor.close()
             connection.close()
 
-        return render_template('users/ventas/generar_venta.html', productos=productos, clientes=clientes)
+        return render_template('users/ventas/generar_venta.html', productos=productos, clientes=clientes, vestido=vestido)
     
 def obtener_productos():
-    connection = get_connection()
-    cursor = connection.cursor()
+    mydb = get_connection()
+    cursor = mydb.cursor()
+    consulta = "SELECT * FROM productos WHERE estado = 'Disponible'"
+    cursor.execute(consulta)
 
-    try:
-        cursor.execute("SELECT id_producto, nombre FROM productos")
-        productos = cursor.fetchall()
-        return productos
-    except mysql.connector.errors.Error as err:
-        print("Error:", err)
-        return []
-    finally:
-        cursor.close()
-        connection.close()
+    vestidos = cursor.fetchall()
+
+    for producto in vestidos:
+        print("ID:", producto[0])
+        print("Nombre:", producto[1])
+        print("Ruta de Imagen:", producto[9])
+        print("---")
+
+    cursor.close()
+    mydb.close()
+    return vestidos
