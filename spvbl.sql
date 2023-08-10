@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-08-2023 a las 04:17:43
+-- Tiempo de generación: 10-08-2023 a las 05:29:16
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,20 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `apartado`
---
-
-CREATE TABLE `apartado` (
-  `id_apartado` int(11) NOT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
-  `id_producto` int(11) DEFAULT NULL,
-  `fecha_control` date DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `cliente`
 --
 
@@ -47,6 +33,14 @@ CREATE TABLE `cliente` (
   `apellido` varchar(50) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `apellido`, `telefono`) VALUES
+(1, 'Jesher', 'Mendieta', '2414137262'),
+(2, 'Alicia', 'Lozada', '2411010310');
 
 -- --------------------------------------------------------
 
@@ -59,20 +53,37 @@ CREATE TABLE `compras` (
   `id_cliente` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) NOT NULL,
+  `abono` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `detalles_apartado`
+-- Volcado de datos para la tabla `compras`
 --
 
-CREATE TABLE `detalles_apartado` (
-  `id_detalle_apartado` int(11) NOT NULL,
-  `id_apartado` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `compras` (`id_compra`, `id_cliente`, `fecha`, `total`, `id_usuario`, `abono`) VALUES
+(21, 1, '2023-08-09', 560.00, 5, 560),
+(22, 2, '2023-08-09', 800.00, 5, 700);
+
+--
+-- Disparadores `compras`
+--
+DELIMITER $$
+CREATE TRIGGER `after_compras_update` AFTER INSERT ON `compras` FOR EACH ROW BEGIN
+    DECLARE total_decimal DECIMAL(10, 2);
+    DECLARE abono_decimal DECIMAL(10, 0);
+    DECLARE vestido_id INT;
+    
+    SELECT total INTO total_decimal FROM compras WHERE id_compra = NEW.id_compra;
+    SELECT abono INTO abono_decimal FROM compras WHERE id_compra = NEW.id_compra;
+    SELECT id_producto INTO vestido_id FROM detalles_venta WHERE id_venta = NEW.id_compra LIMIT 1;
+    
+    IF abono_decimal >= total_decimal THEN
+        UPDATE productos SET estado = 'Pagado' WHERE id_producto = vestido_id;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -85,6 +96,14 @@ CREATE TABLE `detalles_venta` (
   `id_venta` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_venta`
+--
+
+INSERT INTO `detalles_venta` (`id_detalle_venta`, `id_venta`, `id_producto`) VALUES
+(1, 21, 11),
+(2, 22, 10);
 
 -- --------------------------------------------------------
 
@@ -119,8 +138,21 @@ INSERT INTO `productos` (`id_producto`, `nombre`, `talla`, `color`, `categoria`,
 (7, 'Vestido largo', 'CH', 'Azul rey', 'Gala', 'Volantes en hombro y silueta tipo trompeta/sirena de largo hasta el suelo.', 700.00, 'Disponible', 1, 'static\\img\\vestidos\\7.jpg'),
 (8, 'Vestido chico', 'M', 'Negro y dorado', 'Formal', 'Bustier estructurado con forro elástico y silicón alrededor del busto para evitar que se resbale.', 780.00, 'Disponible', 1, 'static\\img\\vestidos\\8.jpg'),
 (9, 'Vestido chico', 'CH', 'Colorido', 'Casual', 'Modelo recto de escote tipo barco sin mangas, confeccionado en tela suave y ligera tipo satín con estampado de colores vibrantes.', 399.00, 'Disponible', 1, 'static\\img\\vestidos\\9.jpg'),
-(10, 'Vestido largo', 'EXG', 'Azul marino', 'Gala', 'Modelo de corte sirena con diseño de hojas brillantes del mismo color, media manga con transparencia y escote redondo.', 800.00, 'Disponible', 1, 'static\\img\\vestidos\\10.jpg'),
-(11, 'Vestido largo', 'M', 'Bronce', 'Noche', 'Confeccionado en su totalidad con tejido jersey elástico de color bronce, muestra un escote V con tirantes anchos y apliques de tela fruncidos que crean una textura lujosa.', 560.00, 'Disponible', 1, 'static\\img\\vestidos\\11.jpg');
+(10, 'Vestido largo', 'EXG', 'Azul marino', 'Gala', 'Modelo de corte sirena con diseño de hojas brillantes del mismo color, media manga con transparencia y escote redondo.', 800.00, 'Apartado', 1, 'static\\img\\vestidos\\10.jpg'),
+(11, 'Vestido largo', 'M', 'Dorado', 'Noche', 'Confeccionado en su totalidad con tejido jersey elástico de color bronce, muestra un escote V con tirantes anchos y apliques de tela fruncidos que crean una textura lujosa.', 560.00, 'Vendido', 1, 'static\\img\\vestidos\\11.jpg');
+
+--
+-- Disparadores `productos`
+--
+DELIMITER $$
+CREATE TRIGGER `after_producto_update` AFTER UPDATE ON `productos` FOR EACH ROW BEGIN
+    IF NEW.estado = 'Vendido' AND OLD.estado <> NEW.estado THEN
+        INSERT INTO `vendidos` (`id_producto`, `nombre`, `talla`, `color`, `categoria`, `descripcion`, `precio`, `estado`, `cantidad`, `img_vestido`)
+        VALUES (NEW.id_producto, NEW.nombre, NEW.talla, NEW.color, NEW.categoria, NEW.descripcion, NEW.precio, NEW.estado, NEW.cantidad, NEW.img_vestido);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -146,22 +178,86 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `nombre_de_usuario`, `tipo_usuario`, `direccion`, `telefono`, `contrasena`, `foto_perfil`) VALUES
-(2, 'Evelyn', 'Garcia', 'Montiel', 'Eve', 'cajero', 'Av.del agua', '24747758865', 'pbkdf2:sha256:600000$jNqGKIQtdDbtxQvl$5c7b427d3f668e36425705890219a8f3b9a2d499698e0afee54ee7875da0d758', 'img/foto_default.jpg'),
 (3, 'Miriam', 'Montiel', 'Flores', 'Miriam', 'admin', 'Av.del agua', '2476923880', 'pbkdf2:sha256:600000$gpp0bsDwf3MHGMQ2$2a5ab913d390abcdef954eee71a00a93679576c2f1f11b1d251d2fd21d5521dc', 'img/foto_default.jpg'),
 (5, 'root', 'root', 'root', 'root', 'admin', 'root', 'root', 'pbkdf2:sha256:600000$BNxRWVQcaxQcaY6q$a0ad70521fc2ab60328c12a75f213e9e100def753eac75085f2d3b341d7f5d12', 'img/foto_default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vendidos`
+--
+
+CREATE TABLE `vendidos` (
+  `id_producto` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `talla` varchar(20) DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `categoria` varchar(50) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT NULL,
+  `estado` varchar(20) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `img_vestido` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vendidos`
+--
+
+INSERT INTO `vendidos` (`id_producto`, `nombre`, `talla`, `color`, `categoria`, `descripcion`, `precio`, `estado`, `cantidad`, `img_vestido`) VALUES
+(11, 'Vestido largo', 'M', 'Dorado', 'Noche', 'Confeccionado en su totalidad con tejido jersey elástico de color bronce, muestra un escote V con tirantes anchos y apliques de tela fruncidos que crean una textura lujosa.', 560.00, 'Vendido', 1, 'static\\img\\vestidos\\11.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_compras_apartadas`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_compras_apartadas` (
+`id_compra` int(11)
+,`nombre_cliente` varchar(50)
+,`nombre_empleado` varchar(255)
+,`cantidad_vestidos` bigint(21)
+,`fecha_compra` date
+,`monto_pagado` decimal(10,0)
+,`restante` decimal(13,2)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_compras_vendidas`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_compras_vendidas` (
+`nombre_cliente` varchar(50)
+,`nombre_empleado` varchar(255)
+,`cantidad_vestidos` bigint(21)
+,`fecha_compra` date
+,`monto_pagado` decimal(10,0)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_compras_apartadas`
+--
+DROP TABLE IF EXISTS `vista_compras_apartadas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_compras_apartadas`  AS SELECT `co`.`id_compra` AS `id_compra`, `c`.`nombre` AS `nombre_cliente`, `u`.`nombre` AS `nombre_empleado`, count(`dv`.`id_detalle_venta`) AS `cantidad_vestidos`, `co`.`fecha` AS `fecha_compra`, `co`.`abono` AS `monto_pagado`, `co`.`total`- `co`.`abono` AS `restante` FROM ((((`compras` `co` join `cliente` `c` on(`co`.`id_cliente` = `c`.`id_cliente`)) join `usuarios` `u` on(`co`.`id_usuario` = `u`.`id`)) join `detalles_venta` `dv` on(`co`.`id_compra` = `dv`.`id_venta`)) join `productos` `p` on(`dv`.`id_producto` = `p`.`id_producto`)) WHERE `p`.`estado` = 'Apartado' GROUP BY `co`.`id_compra` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_compras_vendidas`
+--
+DROP TABLE IF EXISTS `vista_compras_vendidas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_compras_vendidas`  AS   (select `c`.`nombre` AS `nombre_cliente`,`u`.`nombre` AS `nombre_empleado`,count(`dv`.`id_detalle_venta`) AS `cantidad_vestidos`,`co`.`fecha` AS `fecha_compra`,`co`.`abono` AS `monto_pagado` from ((((`compras` `co` join `cliente` `c` on(`co`.`id_cliente` = `c`.`id_cliente`)) join `usuarios` `u` on(`co`.`id_usuario` = `u`.`id`)) join `detalles_venta` `dv` on(`co`.`id_compra` = `dv`.`id_venta`)) join `productos` `p` on(`dv`.`id_producto` = `p`.`id_producto`)) where `p`.`estado` = 'Vendido' group by `co`.`id_compra`)  ;
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `apartado`
---
-ALTER TABLE `apartado`
-  ADD PRIMARY KEY (`id_apartado`),
-  ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_producto` (`id_producto`),
-  ADD KEY `apartado_ibfk_3` (`id_usuario`);
 
 --
 -- Indices de la tabla `cliente`
@@ -176,14 +272,6 @@ ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compra`),
   ADD KEY `id_cliente` (`id_cliente`),
   ADD KEY `compras_ibfk_1` (`id_usuario`);
-
---
--- Indices de la tabla `detalles_apartado`
---
-ALTER TABLE `detalles_apartado`
-  ADD PRIMARY KEY (`id_detalle_apartado`),
-  ADD KEY `id_apartado_idx` (`id_apartado`),
-  ADD KEY `id_producto_idx` (`id_producto`);
 
 --
 -- Indices de la tabla `detalles_venta`
@@ -206,38 +294,32 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indices de la tabla `vendidos`
 --
+ALTER TABLE `vendidos`
+  ADD PRIMARY KEY (`id_producto`);
 
 --
--- AUTO_INCREMENT de la tabla `apartado`
+-- AUTO_INCREMENT de las tablas volcadas
 --
-ALTER TABLE `apartado`
-  MODIFY `id_apartado` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalles_apartado`
---
-ALTER TABLE `detalles_apartado`
-  MODIFY `id_detalle_apartado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -252,35 +334,20 @@ ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `vendidos`
+--
+ALTER TABLE `vendidos`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `apartado`
---
-ALTER TABLE `apartado`
-  ADD CONSTRAINT `apartado_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
-  ADD CONSTRAINT `apartado_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
-  ADD CONSTRAINT `apartado_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
-
---
--- Filtros para la tabla `cliente`
---
-ALTER TABLE `cliente`
-  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `compras` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
-
---
--- Filtros para la tabla `detalles_apartado`
---
-ALTER TABLE `detalles_apartado`
-  ADD CONSTRAINT `detalles_apartado_ibfk_1` FOREIGN KEY (`id_apartado`) REFERENCES `apartado` (`id_apartado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_apartado_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalles_venta`

@@ -1,38 +1,102 @@
 {% extends 'users/ventas/layoutventas.html' %}
 
 {% block content %}
-  <div class="venta-form">
-    <h2>Generar Venta</h2>
-    <form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
-      <div class="input-group">
-        <label for="nombre">Nombre del Cliente:</label>
-        <input type="text" id="nombre" name="nombre" required>
+<div class="venta-form">
+  <div class="product-list">
+    <br>
+    <div class="product-grid">
+      {% for producto in productos %}
+      <div class="product-box">
+        <form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
+          <div class="product-info">
+            <img src="{{ url_for('static', filename=producto[9][7:].replace('\\', '/')) }}" alt="{{ producto[1] }}">
+            <span>{{ producto[1] }}</span>
+            <br><br>
+            <span>Talla: {{ producto[2] }}</span>
+            <br><br>
+            <span>Precio: $ {{ producto[6] }}</span>
+            <br><br>
+            <label class="heart-checkbox">
+              <input type="checkbox" name="productos" value="{{ producto[0] }}" data-precio="{{ producto[6] }}">
+              <span class="checkmark"></span>
+            </label>
+          </div>
       </div>
-
-      <div class="input-group">
-        <label for="apellido">Apellido del Cliente:</label>
-        <input type="text" id="apellido" name="apellido" required>
-      </div>
-
-      <div class="input-group">
-        <label for="abono">Abono:</label>
-        <input type="number" id="abono" name="abono" required>
-      </div>
-
-      <div class="product-list">
-        <h3>Productos Comprados:</h3>
-        {% for producto in productos %}
-          <label class="product">
-            <input type="checkbox" name="productos" value="{{ producto[0] }}">
-            <div class="product-info">
-              <img src="{{ url_for('static', filename=producto[9][7:].replace('\\', '/')) }}" alt="{{ producto[1] }}">
-              <span>{{ producto[1] }}</span>
-            </div>
-          </label>
-        {% endfor %}
-      </div>
-
-      <button type="submit">Generar Venta</button>
-    </form>
+      {% endfor %}
+    </div>
   </div>
+  <button id="continueButton" onclick="showOverlay()">Continuar</button>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="form-overlay">
+    <div class="user-data-form">
+      <h2>Ingrese Datos del Cliente:</h2>
+      <form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <div class="input-group">
+          <label for="nombre">Nombre:</label>
+          <br>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="input-group">
+          <label for="apellido">Apellido:</label>
+          <br>
+          <input type="text" id="apellido" name="apellido" required>
+        </div>
+
+        <div class="input-group">
+          <label for="telefono">Teléfono:</label>
+          <br>
+          <input type="tel" id="telefono" name="telefono" required>
+        </div>
+
+        <div class="input-group">
+          <label for="abono">Pago:</label>
+          <br>
+          <input type="number" id="abono" name="abono" required>
+        </div>
+
+        <div class="input-group">
+          <label for="total">Total:</label>
+          <span id="totalSpan">MXN 0.00</span>
+        </div>
+
+        <button type="submit">Generar Venta</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showOverlay() {
+    const overlay = document.getElementById("overlay");
+    overlay.classList.add("active");
+    calculateTotal();
+  }
+
+  function calculateTotal() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let total = 0;
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        const precio = parseFloat(checkbox.getAttribute("data-precio"));
+        total += precio;
+      }
+    });
+
+    const totalSpan = document.getElementById("totalSpan");
+    if (totalSpan) {
+      const formattedTotal = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+      }).format(total);
+
+      totalSpan.textContent = formattedTotal;
+    }
+  }
+</script>
 {% endblock %}

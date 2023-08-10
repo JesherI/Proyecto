@@ -28,19 +28,23 @@ def generar_venta():
         cursor = connection.cursor()
 
         try:
-            # Insertar cliente
-            cursor.execute("INSERT INTO cliente (nombre, apellido, telefono) VALUES (%s, %s, %s)",
+            cursor.execute("SELECT id_cliente FROM cliente WHERE nombre = %s AND apellido = %s AND telefono = %s",
                            (nombre, apellido, telefono))
-            cliente_id = cursor.lastrowid
+            existing_client = cursor.fetchone()
 
-            # Insertar compra
+            if existing_client:
+                cliente_id = existing_client[0]
+            else:
+                cursor.execute("INSERT INTO cliente (nombre, apellido, telefono) VALUES (%s, %s, %s)",
+                               (nombre, apellido, telefono))
+                cliente_id = cursor.lastrowid
+
             fecha = datetime.now().date()
             usuario_id = current_user.id
             cursor.execute("INSERT INTO compras (id_cliente, fecha, total, id_usuario, abono) VALUES (%s, %s, 0, %s, %s)",
                            (cliente_id, fecha, usuario_id, abono))
             compra_id = cursor.lastrowid
 
-            # Actualizar el total de la compra
             total = 0
             for producto_id in productos_comprados:
                 cursor.execute("SELECT precio FROM productos WHERE id_producto = %s", (producto_id,))
@@ -48,6 +52,10 @@ def generar_venta():
                 total += precio
                 cursor.execute("INSERT INTO detalles_venta (id_venta, id_producto) VALUES (%s, %s)",
                                (compra_id, producto_id))
+
+                nuevo_estado = 'Vendido' if abono >= precio else 'Apartado'
+                cursor.execute("UPDATE productos SET estado = %s WHERE id_producto = %s",
+                               (nuevo_estado, producto_id))
 
             cursor.execute("UPDATE compras SET total = %s WHERE id_compra = %s", (total, compra_id))
             connection.commit()
@@ -58,7 +66,9 @@ def generar_venta():
             cursor.close()
             connection.close()
 
-        return redirect(url_for('ventas_views.ver_ventas'))
+        productos = obtener_productos()
+        clientes = obtener_clientes()
+        return render_template('users/ventas/ventas.html', productos=productos, clientes=clientes, vestido=vestido)
 
     else:
         connection = get_connection()
@@ -77,6 +87,7 @@ def generar_venta():
             connection.close()
 
         return render_template('users/ventas/generar_venta.html', productos=productos, clientes=clientes, vestido=vestido)
+
     
 def obtener_productos():
     mydb = get_connection()
@@ -95,3 +106,15 @@ def obtener_productos():
     cursor.close()
     mydb.close()
     return vestidos
+
+def obtener_clientes():
+    connection = get_connection()
+    cursor = connection.cursor()
+    consulta = "SELECT id_cliente, nombre, apellido FROM cliente"
+    cursor.execute(consulta)
+
+    clientes = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+    return clientes
