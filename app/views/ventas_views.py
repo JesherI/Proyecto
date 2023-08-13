@@ -142,7 +142,9 @@ def generar_venta():
 
         productos = obtener_productos()
         clientes = obtener_clientes()
-        return render_template('users/ventas/ventas.html', productos=productos, clientes=clientes, vestido=vestido)
+        ventas_apartadas = obtener_ventas_apartadas()
+        ventas_vendidas = obtener_ventas_vendidas()
+        return render_template('users/ventas/ventas.html', productos=productos, clientes=clientes, vestido=vestido, ventas_apartadas=ventas_apartadas, ventas_vendidas=ventas_vendidas)
 
     else:
         connection = get_connection()
