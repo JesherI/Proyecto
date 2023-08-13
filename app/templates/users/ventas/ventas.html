@@ -6,4 +6,72 @@
     <a class="bubbly-button" href="/generar_venta/">AGREGAR VENTA +</a>
 </center>
 
+<center>
+    <button class="bubbly-button" id="mostrarVentasBtn">Mostrar Ventas</button>
+    <button class="bubbly-button" id="mostrarApartadosBtn">Mostrar Apartados</button>
+</center>
+
+<div class="ventas-container" id="ventasContainer" style="display: none;">
+    {% for venta in ventas_vendidas %}
+    <div class="venta-card vendida">
+        <h2>{{ venta.0 }} {{ venta.1 }}</h2>
+        <p>Atendido por: {{ venta.2 }}</p>
+        <p>Vestidos comprados: {{ venta.3 }}</p>
+        <p>Fecha: {{ venta.4 }}</p>
+        <p>Monto Pagado: $ {{ venta.5 }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="ventas-container" id="apartadosContainer" style="display: none;">
+    {% for venta in ventas_apartadas %}
+    <div class="venta-card apartado">
+        <h2>{{ venta.1 }} {{ venta.2 }}</h2>
+        <p>Atendido por: {{ venta.3 }}</p>
+        <p>Vestidos apartados: {{ venta.4 }}</p>
+        <p>Fecha: {{ venta.5 }}</p>
+        <p>Monto Abonado: $ {{ venta.6 }}</p>
+        <p>Restante: $ {{ venta.7 }}</p>
+
+        <!-- Botón para mostrar/ocultar el formulario de abono -->
+        <button class="abonar-button" id="abonarBtn{{ venta.0 }}">Abonar</button>
+        <div class="abono-form" id="abonoForm{{ venta.0 }}" style="display: none;">
+            <form action="/realizar_abono/{{ venta.0 }}" method="POST">
+                <label for="monto">Monto de Abono:</label>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="number" step="0.01" name="monto" required>
+                <button type="submit">Realizar Abono</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    const mostrarVentasBtn = document.getElementById('mostrarVentasBtn');
+    const mostrarApartadosBtn = document.getElementById('mostrarApartadosBtn');
+    const ventasContainer = document.getElementById('ventasContainer');
+    const apartadosContainer = document.getElementById('apartadosContainer');
+
+    mostrarVentasBtn.addEventListener('click', function () {
+        ventasContainer.style.display = 'flex';
+        apartadosContainer.style.display = 'none';
+    });
+
+    mostrarApartadosBtn.addEventListener('click', function () {
+        apartadosContainer.style.display = 'flex';
+        ventasContainer.style.display = 'none';
+    });
+
+    // Agrega event listeners a los botones de abono para mostrar/ocultar el formulario
+    {% for venta in ventas_apartadas %}
+    const abonarBtn{{ venta.0 }} = document.getElementById('abonarBtn{{ venta.0 }}');
+    const abonoForm{{ venta.0 }} = document.getElementById('abonoForm{{ venta.0 }}');
+
+    abonarBtn{{ venta.0 }}.addEventListener('click', function () {
+        abonoForm{{ venta.0 }}.style.display = abonoForm{{ venta.0 }}.style.display === 'none' ? 'block' : 'none';
+    });
+    {% endfor %}
+</script>
+
 {% endblock %}

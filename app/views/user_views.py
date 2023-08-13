@@ -3,7 +3,7 @@ from models.users import User
 from forms.user_forms import RegisterForm, ProfileForm
 from werkzeug.utils import secure_filename
 from models.db import get_connection
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 import os
 
@@ -45,21 +45,28 @@ def register():
     
     return render_template('users/usuarios/registro.html', form=form)
     
-@user_views . route('/Home_Admin')
+@user_views.route('/Home_Admin')
 @login_required
 def index_admin():
-    return render_template('users/admin.html')
+    if current_user.tipo_usuario == 'admin':
+        return render_template('users/admin.html')
+    else:
+        flash('Acceso no autorizado', 'error')
+        return redirect(url_for('user.index_cajero'))
 
-@user_views . route('/Home_Cajero')
+@user_views.route('/Home_Cajero')
 @login_required
 def index_cajero():
-    return render_template('users/cajero.html')
+    if current_user.tipo_usuario == 'cajero': 
+        return render_template('users/cajero.html')
+    else:
+        flash('Acceso no autorizado', 'error')
+        return redirect(url_for('user.index_admin'))
 
 @user_views.route('/usuarios/')
 @login_required
 def usuarios():
     users = User.get_all()
-    form = RegisterForm()
     return render_template('users/usuarios/usuarios.html', users=users)
 
 @user_views.route('/usuarios/eliminar/<int:user_id>', methods=['POST'])

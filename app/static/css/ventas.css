@@ -96,3 +96,112 @@
     display: block;
     animation: bottomBubbles ease-in-out 0.75s forwards;
 }
+
+body {
+    font-family: Arial, sans-serif;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.custom-button:hover {
+    background-color: #2188c9;
+}
+.button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.table-container {
+    display: none;
+    margin-top: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.ventas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.venta-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.384);
+    background-color: white;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    transition: transform 0.2s;
+}
+
+.venta-card:hover {
+    transform: translateY(-15px);
+}
+
+.venta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.venta-details p {
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .venta-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .venta-card {
+        width: 100%;
+    }
+}
+
+.ventas-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#ventas-list {
+    margin-top: 20px;
+    display: none;
+}
+
+.venta-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+

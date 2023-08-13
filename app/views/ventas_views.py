@@ -3,15 +3,89 @@ from models.db import get_connection
 from flask_login import login_required,current_user
 from datetime import datetime
 import mysql.connector.errors
+from decimal import Decimal
 from models.vestidos import obtener_vestido_por_id
+
 
 
 ventas_views = Blueprint('ventas_views', __name__)
 
+from flask import flash, redirect, url_for
+
+@ventas_views.route('/realizar_abono/<int:id_compra>', methods=['POST'])
+def realizar_abono(id_compra):
+    if request.method == 'POST':
+        monto_abono = Decimal(request.form['monto'])
+        
+        connection = get_connection()
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute("SELECT total, abono FROM compras WHERE id_compra = %s", (id_compra,))
+            result = cursor.fetchone()
+
+            if result:
+                total = result[0]
+                abono_actual = result[1]
+
+                nuevo_abono = abono_actual + monto_abono
+
+                if nuevo_abono <= total:
+                    cursor.execute("UPDATE compras SET abono = %s WHERE id_compra = %s", (nuevo_abono, id_compra))
+                    connection.commit()
+                    flash('Abono registrado exitosamente.', 'success')
+                    print('Abono registrado exitosamente.')
+                else:
+                    flash('El abono excede el monto total de la compra.', 'error')
+                    print('El abono excede el monto total de la compra.')
+            else:
+                flash('Compra no encontrada.', 'error')
+                print('Compra no encontrada.')
+        except Exception as e:
+            flash('Error al registrar el abono.', 'error')
+            print(e)
+        
+        connection.close()
+        return redirect(url_for('ventas_views.ver_ventas'))
+    
 @ventas_views.route('/ventas/')
-@login_required
 def ver_ventas():
-    return render_template('users/ventas/ventas.html')
+    ventas_apartadas = obtener_ventas_apartadas()
+    ventas_vendidas = obtener_ventas_vendidas()
+    print(ventas_apartadas) 
+    print(ventas_vendidas)   
+    return render_template('users/ventas/ventas.html', ventas_apartadas=ventas_apartadas, ventas_vendidas=ventas_vendidas)
+
+def obtener_ventas_apartadas():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM vista_compras_apartadas")
+        ventas_apartadas = cursor.fetchall()
+    except mysql.connector.errors.Error as err:
+        print("Error:", err)
+        ventas_apartadas = []
+    finally:
+        cursor.close()
+        connection.close()
+
+    return ventas_apartadas
+
+def obtener_ventas_vendidas():
+    connection = get_connection()
+    cursor = connection.cursor()
+    try:
+        cursor.execute("SELECT * FROM vista_compras_vendidas")
+        ventas_vendidas = cursor.fetchall()
+    except mysql.connector.errors.Error as err:
+        print("Error:", err)
+        ventas_vendidas = []
+    finally:
+        cursor.close()
+        connection.close()
+
+    return ventas_vendidas
 
 @ventas_views.route('/generar_venta/', methods=['GET', 'POST'])
 @login_required

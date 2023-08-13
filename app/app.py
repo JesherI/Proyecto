@@ -11,6 +11,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user
 from flask_wtf.csrf import CSRFProtect
 from views.vestidos_views import vestidos_views 
 from views.ventas_views import ventas_views
+from views.reportes_views import reportes_views
 
 app = Flask(__name__)
 db = MySQL(app)
@@ -27,6 +28,7 @@ app.register_blueprint(user_views)
 app.register_blueprint(index_views)
 app.register_blueprint(vestidos_views)
 app.register_blueprint(ventas_views)
+app.register_blueprint(reportes_views)
 
 @app.route('/login/', methods=('GET', 'POST'))
 def login():

@@ -58,7 +58,7 @@ def agregar_vestidos():
 
     return render_template('users/vestidos/resgistro_vestidos.html')
 
-@vestidos_views.route('/vestidos/borrar/<int:id>/', methods=['POST'])
+@vestidos_views.route('/vestidos/borrar/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def borrar_vestido(id):
     eliminar_vestido_por_id(id)

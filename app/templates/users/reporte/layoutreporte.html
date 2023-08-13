@@ -7,19 +7,21 @@
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/vestidos.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/registro_vestidos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/generar_venta.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>LULA</title>
 </head>
 
 <body>
     <header class="header">
         <nav class="navbar">
-            <a href="/Home_Admin" class="brand"><img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo" alt="">LULA</a>
+            <a href="/Home_Admin" class="brand"><img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo"
+                    alt="">LULA</a>
             <span id="menu-icon"><i class="fas fa-bars"></i></span>
             <ul>
                 <li><a href="/vestidos/">VESTIDOS</a></li>
-                <li><a href="/reportes/">REPORTES</a></li>
+                <li><a href="/report/">REPORTES</a></li>
                 <li><a href="/usuarios/">USUARIOS</a></li>
                 <li><a href="/ventas/">VENTA</a></li>
                 <li>
