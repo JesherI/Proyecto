@@ -3,8 +3,7 @@
     margin: 0 auto;
     padding: 20px;
   }
-  
-  /* Estilos para los vestidos */
+
   .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -15,7 +14,7 @@
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(12, 12, 12, 0.1);
     border-radius: 8px;
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -26,12 +25,11 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  /* Estilos para el botón Continuar */
   #continueButton {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #b474b9;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -40,10 +38,9 @@
   }
   
   #continueButton:hover {
-    background-color: #0056b3;
+    background-color: #b474b9;
   }
   
-  /* Estilos para el formulario en overlay */
   .overlay {
     display: none;
     position: fixed;
@@ -69,8 +66,7 @@
     width: 80%;
     max-width: 500px;
   }
-  
-  /* Estilos adicionales para el formulario */
+
   .user-data-form {
     text-align: center;
     margin-top: 20px;
@@ -85,9 +81,8 @@
     margin-top: 20px;
   }
   
-  /* Estilos para el botón de Continuar en el formulario */
   .user-data-form button {
-    background-color: #2ecc71;
+    background-color: #ad6cc7;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -97,13 +92,12 @@
   }
   
   .user-data-form button:hover {
-    background-color: #27ae60;
+    background-color: #be5abe;
   }
   
-  /* Estilos para los campos con efecto de deslizamiento */
   .input-group {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   
   .input-group input {
@@ -130,11 +124,11 @@
   .input-group input:valid + label {
     transform: translateY(-20px);
     font-size: 12px;
-    color: #007bff;
+    color: #2f888b;
   }
   
   .input-group input:focus {
-    border-bottom-color: #007bff;
+    border-bottom-color: #c573cc;
     padding-top: 20px;
   }
   
@@ -162,3 +156,12 @@
     border-color: rgba(0, 0, 0, 0.2); 
   }
   
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }

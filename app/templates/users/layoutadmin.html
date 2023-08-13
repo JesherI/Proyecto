@@ -7,18 +7,23 @@
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% block extra_styles %}{% endblock %}
     <title>LULA</title>
 </head>
 
 <body>
     <header class="header">
         <nav class="navbar">
-            <a href="/Home_Admin" class="brand"><img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo" alt=""> LULA</a>
+            <a href="/Home_Admin" class="brand"><img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo"
+                    alt=""> LULA</a>
             <span id="menu-icon"><i class="fas fa-bars"></i></span>
             <ul>
                 <li><a href="/vestidos/">VESTIDOS</a></li>
+                {% if current_user.is_authenticated %}
+                {% if current_user.tipo_usuario == 'admin' %}
                 <li><a href="/reportes/">REPORTES</a></li>
                 <li><a href="/usuarios/">USUARIOS</a></li>
+                {% endif %}
                 <li><a href="/ventas/">VENTAS</a></li>
                 <li>
                     <form action="{{ url_for('logout') }}" method="post" id="logout-form">
@@ -28,6 +33,9 @@
                             SESIÓN</a>
                     </form>
                 </li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">INICIAR SESIÓN</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

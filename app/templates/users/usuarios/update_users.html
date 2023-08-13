@@ -1,11 +1,7 @@
-{% extends "users/usuarios/layoutusers.html" %}
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="{{ url_for('static', filename='img/LULA.png') }}" type="image/x-icon">
-</head>
-
+{% extends "users/layoutadmin.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/update.css') }}">
+{% endblock %}
 {% block content %}
 
 <main class="actualizar">

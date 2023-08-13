@@ -1,4 +1,8 @@
-{% extends "users/vestidos/layoutvestidos.html" %}
+{% extends "users/layoutadmin.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vestidos.css') }}">
+{% endblock %}
+
 
 {% block content %}
 <center>

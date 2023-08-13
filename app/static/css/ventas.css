@@ -5,6 +5,7 @@
     justify-content: space-between;
     justify-content: flex-start;
 }
+
 .vestido-card {
     flex-basis: calc(25% - 20px);
     background-color: #ffffff;
@@ -14,9 +15,11 @@
     transition: transform 0.3s ease;
     margin-bottom: 20px;
 }
+
 .vestido-card:hover {
     transform: translateY(-5px);
 }
+
 .vestido-img {
     max-width: 100%;
     height: auto;
@@ -24,10 +27,12 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
 .vestido-info {
     padding: 15px;
     text-align: center;
 }
+
 .vestido-info strong {
     display: block;
     font-size: 14px;
@@ -40,11 +45,13 @@
         flex-basis: calc(50% - 20px);
     }
 }
+
 @media screen and (max-width: 480px) {
     .vestido-card {
         flex-basis: calc(100% - 20px);
     }
 }
+
 .bubbly-button {
     font-family: "Helvetica", "Arial", sans-serif;
     display: inline-block;
@@ -100,6 +107,7 @@
 body {
     font-family: Arial, sans-serif;
 }
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -108,6 +116,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .custom-button {
     display: inline-block;
     padding: 10px 20px;
@@ -119,26 +128,33 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
+
 .custom-button:hover {
     background-color: #2188c9;
 }
+
 .button-container {
     text-align: center;
     margin-bottom: 20px;
 }
+
 .table-container {
     display: none;
     margin-top: 20px;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
-th, td {
+
+th,
+td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
 th {
     background-color: #f2f2f2;
 }
@@ -205,3 +221,69 @@ th {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.abono-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    z-index: 1001;
+    max-width: 400px;
+    width: 100%;
+}
+
+.abono-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.abono-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.abono-form button[type="submit"] {
+    background-color: #c29dfd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.abono-form button[type="submit"]:hover {
+    background-color: #c29dfd;
+}
+
+
+.abonar-button {
+    background-color: #c29dfd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.abonar-button:hover {
+    background-color: #c29dfd;
+}

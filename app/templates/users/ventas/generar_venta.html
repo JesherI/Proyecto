@@ -1,5 +1,7 @@
-{% extends 'users/ventas/layoutventas.html' %}
-
+{% extends "users/layoutadmin.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/generar_venta.css') }}">
+{% endblock %}
 {% block content %}
 <div class="venta-form">
   <div class="product-list">
@@ -31,10 +33,10 @@
 <div class="overlay" id="overlay">
   <div class="form-overlay">
     <div class="user-data-form">
+      <button class="close-button" onclick="hideOverlay()">✕</button>
       <h2>Ingrese Datos del Cliente:</h2>
       <form method="post" action="{{ url_for('ventas_views.generar_venta') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
         <div class="input-group">
           <label for="nombre">Nombre:</label>
           <br>
@@ -46,7 +48,6 @@
           <br>
           <input type="text" id="apellido" name="apellido" required>
         </div>
-
         <div class="input-group">
           <label for="telefono">Teléfono:</label>
           <br>
@@ -58,7 +59,6 @@
           <br>
           <input type="number" id="abono" name="abono" required>
         </div>
-
         <div class="input-group">
           <label for="total">Total:</label>
           <span id="totalSpan">MXN 0.00</span>
@@ -75,6 +75,11 @@
     const overlay = document.getElementById("overlay");
     overlay.classList.add("active");
     calculateTotal();
+  }
+
+  function hideOverlay() {
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("active");
   }
 
   function calculateTotal() {
@@ -98,5 +103,6 @@
       totalSpan.textContent = formattedTotal;
     }
   }
+  
 </script>
 {% endblock %}

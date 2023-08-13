@@ -1,5 +1,7 @@
-{% extends "users/ventas/layoutventas.html" %}
-
+{% extends "users/layoutadmin.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
+{% endblock %}
 {% block content %}
 
 <center>
@@ -32,17 +34,17 @@
         <p>Fecha: {{ venta.5 }}</p>
         <p>Monto Abonado: $ {{ venta.6 }}</p>
         <p>Restante: $ {{ venta.7 }}</p>
-
-        <!-- Botón para mostrar/ocultar el formulario de abono -->
         <button class="abonar-button" id="abonarBtn{{ venta.0 }}">Abonar</button>
-        <div class="abono-form" id="abonoForm{{ venta.0 }}" style="display: none;">
+    </div>
+    <div id="overlay" style="display: none;"></div>
+    <div class="abono-form" id="abonoForm{{ venta.0 }}" style="display: none;">
             <form action="/realizar_abono/{{ venta.0 }}" method="POST">
+                <button class="close-button" onclick="cerrarFormulario('{{ venta.0 }}')">Cerrar</button>
                 <label for="monto">Monto de Abono:</label>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="number" step="0.01" name="monto" required>
                 <button type="submit">Realizar Abono</button>
             </form>
-        </div>
     </div>
     {% endfor %}
 </div>
@@ -63,7 +65,11 @@
         ventasContainer.style.display = 'none';
     });
 
-    // Agrega event listeners a los botones de abono para mostrar/ocultar el formulario
+    function cerrarFormulario(ventaId) {
+        const abonoForm = document.getElementById(`abonoForm${ventaId}`);
+        abonoForm.style.display = 'none';
+    }
+
     {% for venta in ventas_apartadas %}
     const abonarBtn{{ venta.0 }} = document.getElementById('abonarBtn{{ venta.0 }}');
     const abonoForm{{ venta.0 }} = document.getElementById('abonoForm{{ venta.0 }}');
