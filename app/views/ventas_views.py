@@ -33,16 +33,12 @@ def realizar_abono(id_compra):
                 if nuevo_abono <= total:
                     cursor.execute("UPDATE compras SET abono = %s WHERE id_compra = %s", (nuevo_abono, id_compra))
                     connection.commit()
-                    flash('Abono registrado exitosamente.', 'success')
                     print('Abono registrado exitosamente.')
                 else:
-                    flash('El abono excede el monto total de la compra.', 'error')
                     print('El abono excede el monto total de la compra.')
             else:
-                flash('Compra no encontrada.', 'error')
                 print('Compra no encontrada.')
         except Exception as e:
-            flash('Error al registrar el abono.', 'error')
             print(e)
         
         connection.close()
@@ -142,9 +138,7 @@ def generar_venta():
 
         productos = obtener_productos()
         clientes = obtener_clientes()
-        ventas_apartadas = obtener_ventas_apartadas()
-        ventas_vendidas = obtener_ventas_vendidas()
-        return render_template('users/ventas/ventas.html', productos=productos, clientes=clientes, vestido=vestido, ventas_apartadas=ventas_apartadas, ventas_vendidas=ventas_vendidas)
+        return redirect(url_for('ventas_views.ver_ventas'))
 
     else:
         connection = get_connection()

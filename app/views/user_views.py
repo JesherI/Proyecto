@@ -51,7 +51,6 @@ def index_admin():
     if current_user.tipo_usuario == 'admin':
         return render_template('users/admin.html')
     else:
-        flash('Acceso no autorizado', 'error')
         return redirect(url_for('user.index_cajero'))
 
 @user_views.route('/Home_Cajero')
@@ -60,7 +59,6 @@ def index_cajero():
     if current_user.tipo_usuario == 'cajero': 
         return render_template('users/cajero.html')
     else:
-        flash('Acceso no autorizado', 'error')
         return redirect(url_for('user.index_admin'))
 
 @user_views.route('/usuarios/')
