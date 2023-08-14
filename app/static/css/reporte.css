@@ -1,0 +1,53 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 16px;
+}
+
+#grafica {
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+}
+
+.total {
+    font-weight: bold;
+    color: #E91E63;
+}
+
+.btn-download {
+    background-color: transparent;
+    border: 2px solid #bf7dd3;
+    color: #bf7dd3;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-download:hover {
+    background-color: #bf7dd3;
+    color: #fff;
+}

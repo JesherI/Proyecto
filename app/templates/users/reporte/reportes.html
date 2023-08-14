@@ -1,44 +1,86 @@
 {% extends "users/layoutadmin.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reporte.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+{% endblock %}
 
 {% block content %}
+
 <center>
-    <div class="container">
-        <h1>Reporte de Ganancias de los ultimos 7 dias</h1>
+    <br>
+    <button onclick="descargarPDF()" class="btn btn-primary btn-download">Descargar PDF</button>
+    <div id="contenidoPDF">
+    
+        <div class="container">
+            <h1>Reporte Semanal</h1>
+            
+            <h3>Ganancia de la semana</h3>
+            <p>Total ganancias: {{ total_earnings }}</p>
+
+        <h3>Estadísticas Generales</h3>
+        <p>Total de vestidos: {{ total }}</p>
+        <p>Productos disponibles: {{ total_disponibles }}</p>
+        <p>Productos apartados: {{ total_apartados }}</p>
+        <p>Productos vendidos: {{ total_vendidos }}</p>
+        <p>Total ganancias: {{ total_earnings }}</p>
+        
+        <h1>Reporte de Ganancias de los últimos 7 días</h1>
         <br>
         <canvas id="grafica" width="500" height="300" style="max-width: 800px; max-height: 300px;"></canvas>
-        
     </div>
+</div>
 </center>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var ctx = document.getElementById('grafica').getContext('2d');
-    var fecha_labels = {{ fecha_labels | tojson | safe }};
-    var total_abonos = {{ total_abonos | tojson | safe }};
-    
-    if (fecha_labels && total_abonos) {
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: fecha_labels,
-                datasets: [{
-                    label: 'Ganancias Diarias',
-                    backgroundColor: 'rgba(168, 0, 110, 0.3)',
-                    borderColor: 'rgba(168, 0, 110, 1)',
-                    borderWidth: 1,
-                    data: total_abonos
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true }
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('grafica').getContext('2d');
+        var fecha_labels = {{ fecha_labels | tojson | safe }};
+        var total_abonos = {{ total_abonos | tojson | safe }};
+        var total_earnings = {{ total_earnings | tojson | safe }};
+
+        if (fecha_labels && total_abonos) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: fecha_labels,
+                    datasets: [{
+                        label: 'Ganancias Diarias',
+                        backgroundColor: 'rgba(168, 0, 110, 0.3)',
+                        borderColor: 'rgba(168, 0, 110, 1)',
+                        borderWidth: 1,
+                        data: total_abonos
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
                 }
-            }
-        });
-    }
-});
+            });
+        }
+    });
 </script>
+<script>
+    function descargarPDF() {
+        const options = {
+            margin: 10,
+            filename: 'reporte_semanal.pdf',
+            image: { type: 'jpeg', quality:  1 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+    
+        const elementoParaConvertir = document.getElementById('contenidoPDF');
+    
+        elementoParaConvertir.style.display = 'none';
+    
+        html2pdf().from(elementoParaConvertir).set(options).save();
+    
+        elementoParaConvertir.style.display = 'block';
+    }
+    </script>
+    
 {% endblock %}
