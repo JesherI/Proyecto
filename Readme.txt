@@ -7,5 +7,7 @@ pip install flask-wtf
 pip install Flask-Login
 pip install mysql-connector-python
 pip install Flask-MySQL
+npm install jspdf
+
 
 Tienen que utilizar ahora la nueva base de datos está modificada para que funcione con esta aplicación web

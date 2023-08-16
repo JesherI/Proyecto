@@ -6,6 +6,7 @@
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% block extra_styles %}{% endblock %}
     <title>LULA</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
             <a href="/" class="brand"><img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo" alt="">LULA</a>
             <span id="menu-icon"><i class="fas fa-bars"></i></span>
             <ul>
-                <li><a href="">VESTIDOS</a></li>
+                <li><a href="/index-vestidos/">VESTIDOS</a></li>
                 <li><a href="/login">INICIAR SESIÓN</a></li>
             </ul>
         </nav>

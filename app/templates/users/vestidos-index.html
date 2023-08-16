@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vestidos.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<main>
+    {% for vestido in vestidos %}
+    {% if vestido[7] == "Disponible" %}
+    {% if loop.index % 2 == 1 %}
+    <div class="vestido-row">
+        {% endif %}
+        <div class="vestido-container">
+            <div class="vestido-image">
+                <img src="{{ url_for('static', filename=vestido[9][7:]) }}" alt="Imagen del vestido">
+            </div>
+            <div class="vestido-info">
+                <h2>
+                    <p>{{ vestido[1] }}</p>
+                </h2>
+                <h3>Talla:<h5>
+                        <p> {{ vestido[2] }}</p>
+                    </h5>
+                </h3>
+                <h3>Color:<h5>
+                        <p> {{ vestido[3] }}</p>
+                    </h5>
+                </h3>
+                <h3>Categoria:<h5>
+                        <p> {{ vestido[4] }}</p>
+                    </h5>
+                </h3>
+                <h3>Descripción:<h5>
+                        <p> {{ vestido[5] }}</p>
+                    </h5>
+                </h3>
+                <h3>Precio:<h5>
+                        <p> $ {{ vestido[6] }}</p>
+                    </h5>
+                </h3>
+            </div>
+        </div>
+        {% if loop.index % 2 == 0 or loop.last %}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    {% if vestidos|length == 0 %}
+    <p>No hay vestidos disponibles.</p>
+    {% endif %}
+</main>
+
+{% endblock %}
