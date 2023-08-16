@@ -7,7 +7,6 @@
 {% block content %}
 <main>
     {% for vestido in vestidos %}
-    {% if vestido[7] == "Disponible" %}
     {% if loop.index % 2 == 1 %}
     <div class="vestido-row">
         {% endif %}
@@ -43,7 +42,6 @@
         </div>
         {% if loop.index % 2 == 0 or loop.last %}
     </div>
-    {% endif %}
     {% endif %}
     {% endfor %}
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template
 from models.vestidos import obtener_todos_los_vestidos
 
 index_views = Blueprint('index',__name__)
