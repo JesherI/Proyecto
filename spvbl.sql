@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-08-2023 a las 20:29:45
+-- Tiempo de generación: 16-08-2023 a las 05:19:44
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,6 +63,17 @@ CREATE TABLE `cliente` (
   `telefono` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `apellido`, `telefono`) VALUES
+(1, 'Hefziba', 'Mendieta', '2411607357'),
+(2, 'Laura', 'Contreras', '2467837262'),
+(3, 'Fatima', 'Nava', '24179092012'),
+(4, 'Alicia', 'Lozada', '2411607357'),
+(5, 'Sergio', 'Ibarra', '2411219086');
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +88,17 @@ CREATE TABLE `compras` (
   `id_usuario` int(11) NOT NULL,
   `abono` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id_compra`, `id_cliente`, `fecha`, `total`, `id_usuario`, `abono`) VALUES
+(1, 1, '2023-08-15', 450.00, 1, 300),
+(2, 2, '2023-08-14', 399.00, 1, 399),
+(3, 3, '2023-08-13', 350.00, 1, 350),
+(4, 4, '2023-08-12', 670.00, 1, 500),
+(5, 5, '2023-08-11', 1198.00, 1, 1198);
 
 --
 -- Disparadores `compras`
@@ -110,6 +132,18 @@ CREATE TABLE `detalles_venta` (
   `id_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalles_venta`
+--
+
+INSERT INTO `detalles_venta` (`id_detalle_venta`, `id_venta`, `id_producto`) VALUES
+(1, 1, 2),
+(2, 2, 4),
+(3, 3, 5),
+(4, 4, 3),
+(5, 5, 10),
+(6, 5, 11);
+
 -- --------------------------------------------------------
 
 --
@@ -135,16 +169,16 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`id_producto`, `nombre`, `talla`, `color`, `categoria`, `descripcion`, `precio`, `estado`, `cantidad`, `img_vestido`) VALUES
 (1, 'Vestido corto', 'CH', 'Rosa pastel', 'Noche', 'El diseño en corpiño muestra un escote ilusión de tela con transparencia decorado con encaje. La falda corta comienza con un fruncido en cintura del que se desprenden dos capas de tela rígida con volado.', 600.00, 'Disponible', 1, 'static\\img\\vestidos\\1.jpg'),
-(2, 'Vestido corto', 'M', 'Negro', 'Formal', 'Confeccionado en tela elástica color negro, escote tipo barco, mangas tres cuartos y bolsas laterales.', 450.00, 'Disponible', 1, 'static\\img\\vestidos\\2.jpg'),
-(3, 'Vestido corto', 'M', 'Negro', 'Gala', 'Modelo asimétrico ceñido al cuerpo, escote a un hombro y volantes exagerados que completan el diseño.', 670.00, 'Disponible', 1, 'static\\img\\vestidos\\3.jpg'),
-(4, 'Vestido corto', 'CH', 'Gris', 'Formal', 'Diseño en tubo de cuello redondo, sin mangas, cintilla que acentúa la figura y una sutil abertura en pierna.\r\n', 399.00, 'Disponible', 1, 'static\\img\\vestidos\\4.jpg'),
-(5, 'Vestido corto', 'M', 'Negro', 'Formal', 'Modelo recto, en un solo bloque de color, confeccionado en tela suave y ligera. Pliegues a un costado y sobrante que va desde el hombro a la cintura, dando al diseño un detalle de ligeros olanes.\r\n', 350.00, 'Disponible', 1, 'static\\img\\vestidos\\5.jpg'),
+(2, 'Vestido corto', 'M', 'Negro', 'Formal', 'Confeccionado en tela elástica color negro, escote tipo barco, mangas tres cuartos y bolsas laterales.', 450.00, 'Apartado', 1, 'static\\img\\vestidos\\2.jpg'),
+(3, 'Vestido corto', 'M', 'Negro', 'Gala', 'Modelo asimétrico ceñido al cuerpo, escote a un hombro y volantes exagerados que completan el diseño.', 670.00, 'Apartado', 1, 'static\\img\\vestidos\\3.jpg'),
+(4, 'Vestido corto', 'CH', 'Gris', 'Formal', 'Diseño en tubo de cuello redondo, sin mangas, cintilla que acentúa la figura y una sutil abertura en pierna.\r\n', 399.00, 'Vendido', 1, 'static\\img\\vestidos\\4.jpg'),
+(5, 'Vestido corto', 'M', 'Negro', 'Formal', 'Modelo recto, en un solo bloque de color, confeccionado en tela suave y ligera. Pliegues a un costado y sobrante que va desde el hombro a la cintura, dando al diseño un detalle de ligeros olanes.\r\n', 350.00, 'Vendido', 1, 'static\\img\\vestidos\\5.jpg'),
 (6, 'Vestido corto', 'G', 'Negro', 'Formal', 'Confeccionado en tela elástica en color negro y forro del mismo color. Este modelo en tubo de líneas esenciales cuenta con escote redondo, manga corta y cremallera en contraste en la parte trasera.\r\n', 350.00, 'Disponible', 1, 'static\\img\\vestidos\\7.jpg'),
 (7, 'Vestido corto', 'CH', 'Azul cerúleo', 'Noche', 'Modelo de escote corazón con tirantes delgados, confeccionado en tela rígida con peculiar brillo y una falda circular que se desprende de la cintura con pliegues verticales.', 599.00, 'Disponible', 1, 'static\\img\\vestidos\\6.jpg'),
 (8, 'Vestido corto', 'CH', 'Índigo', 'Formal', 'Modelo de escote tipo \"Reina Anna\", manga casquillo y drapeado asimétrico lateral.\r\n', 499.00, 'Disponible', 1, 'static\\img\\vestidos\\8.jpg'),
 (9, 'Vestido corto', 'M', 'Negro y dorado', 'Gala', 'Diseño de cóctel en dorado y negro con escote corazón. Bustier estructurado con forro elástico y silicón alrededor del busto para evitar que se resbale.', 600.00, 'Disponible', 1, 'static\\img\\vestidos\\9.jpg'),
-(10, 'Vestido corto', 'CH', 'Latte y marfil', 'Gala', 'Modelo en tubo sin mangas, de cuello redondo y cintilla con accesorios metálicos en color dorado.\r\n', 499.00, 'Disponible', 1, 'static\\img\\vestidos\\10.jpg'),
-(11, 'Vestido largo', 'CH', 'Azul cobalto', 'Gala', 'Diseño de silueta en línea A, corpiño trapeado en cintura y escote palabra de honor que ofrece un hermoso contraste con el dramatismo del vestido.', 699.00, 'Disponible', 1, 'static\\img\\vestidos\\11.jpg'),
+(10, 'Vestido corto', 'CH', 'Latte y marfil', 'Gala', 'Modelo en tubo sin mangas, de cuello redondo y cintilla con accesorios metálicos en color dorado.\r\n', 499.00, 'Vendido', 1, 'static\\img\\vestidos\\10.jpg'),
+(11, 'Vestido largo', 'CH', 'Azul cobalto', 'Gala', 'Diseño de silueta en línea A, corpiño trapeado en cintura y escote palabra de honor que ofrece un hermoso contraste con el dramatismo del vestido.', 699.00, 'Vendido', 1, 'static\\img\\vestidos\\11.jpg'),
 (12, 'Vestido largo', 'CH', 'Azul bondi', 'Noche', 'Escote cruzado con cuello tipo halter y pliegues entrecruzados en el corpiño delantero. Falda larga en línea A perfeccionada con pliegues fruncidos en el centro.\r\n', 599.00, 'Disponible', 1, 'static\\img\\vestidos\\12.jpg'),
 (13, 'Vestido largo', 'M', 'Azul claro', 'Gala', 'Diseño en strapless con escote palabra de honor y corpiño decorado con pliegues horizontales.\r\n', 630.00, 'Disponible', 1, 'static\\img\\vestidos\\13.jpg'),
 (14, 'Vestido largo', 'M', 'Azul marino', 'Gala', 'Diseño asimétrico con escote a un hombro y cintilla ceñida a la cintura.\r\nFalda con silueta clásica en línea A de largo hasta el piso.\r\n', 599.00, 'Disponible', 1, 'static\\img\\vestidos\\16.jpg'),
@@ -214,6 +248,16 @@ CREATE TABLE `vendidos` (
   `cantidad` int(11) NOT NULL,
   `img_vestido` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vendidos`
+--
+
+INSERT INTO `vendidos` (`id_producto`, `nombre`, `talla`, `color`, `categoria`, `descripcion`, `precio`, `estado`, `cantidad`, `img_vestido`) VALUES
+(4, 'Vestido corto', 'CH', 'Gris', 'Formal', 'Diseño en tubo de cuello redondo, sin mangas, cintilla que acentúa la figura y una sutil abertura en pierna.\r\n', 399.00, 'Vendido', 1, 'static\\img\\vestidos\\4.jpg'),
+(5, 'Vestido corto', 'M', 'Negro', 'Formal', 'Modelo recto, en un solo bloque de color, confeccionado en tela suave y ligera. Pliegues a un costado y sobrante que va desde el hombro a la cintura, dando al diseño un detalle de ligeros olanes.\r\n', 350.00, 'Vendido', 1, 'static\\img\\vestidos\\5.jpg'),
+(10, 'Vestido corto', 'CH', 'Latte y marfil', 'Gala', 'Modelo en tubo sin mangas, de cuello redondo y cintilla con accesorios metálicos en color dorado.\r\n', 499.00, 'Vendido', 1, 'static\\img\\vestidos\\10.jpg'),
+(11, 'Vestido largo', 'CH', 'Azul cobalto', 'Gala', 'Diseño de silueta en línea A, corpiño trapeado en cintura y escote palabra de honor que ofrece un hermoso contraste con el dramatismo del vestido.', 699.00, 'Vendido', 1, 'static\\img\\vestidos\\11.jpg');
 
 -- --------------------------------------------------------
 
@@ -397,19 +441,19 @@ ALTER TABLE `vendidos`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -427,7 +471,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vendidos`
 --
 ALTER TABLE `vendidos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
